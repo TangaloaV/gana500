@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TSV Term Expander</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffea00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff00cc;
+    }
+    input, button {
+      background: #111;
+      color: #fff;
+      border: 1px solid #ffea00;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .output {
+      background: #111;
+      border: 1px solid #ff00cc;
+      padding: 10px;
+      white-space: pre-wrap;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧪 TSV Term Expander</h1>
+  <input type="file" id="tsvFile" accept=".tsv" />
+  <button onclick="processTSV()">Process TSV</button>
+  <div class="output" id="output">Upload a TSV file with two columns (terms, conlang_word).</div>
+
+  <script>
+    function processTSV() {
+      const fileInput = document.getElementById('tsvFile');
+      const outputDiv = document.getElementById('output');
+
+      if (!fileInput.files.length) {
+        outputDiv.textContent = "Please upload a file.";
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const lines = event.target.result.split('\n').filter(line => line.trim() !== '');
+        const expanded = [];
+
+        lines.forEach(line => {
+          const [termStr, conlangWord] = line.split('\t');
+          if (!termStr || !conlangWord) return;
+          const terms = termStr.split(', ');
+          terms.forEach(term => {
+            expanded.push(term + '\t' + conlangWord);
+          });
+        });
+
+        const expandedContent = expanded.join('\n');
+        outputDiv.textContent = expandedContent;
+
+        const blob = new Blob([expandedContent], { type: 'text/tab-separated-values' });
+        const url = URL.createObjectURL(blob);
+        const downloadLink = document.createElement('a');
+        downloadLink.href = url;
+        downloadLink.download = 'expanded_output.tsv';
+        downloadLink.textContent = "⬇ Download Expanded TSV";
+        downloadLink.style.display = 'block';
+        downloadLink.style.marginTop = '10px';
+        outputDiv.appendChild(downloadLink);
+      };
+
+      reader.readAsText(fileInput.files[0]);
+    }
+  </script>
+</body>
+</html>

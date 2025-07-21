@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conlang MIDI Generator</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffea00;
+      font-family: monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff00cc;
+    }
+    textarea, button {
+      background: #111;
+      color: #fff;
+      border: 1px solid #ffea00;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎵 Conlang MIDI Generator</h1>
+  <textarea id="inputText" rows="6" placeholder="Enter your tonal conlang string here..."></textarea>
+  <button onclick="generateMIDI()">Generate MIDI</button>
+  <div id="midiStatus" style="margin-top:10px;color:#7aa2f7;"></div>
+  <script src="matuqa.js"></script>
+  <script>
+    // Show a status message when MIDI is generated
+    const origGenerateMIDI = window.generateMIDI;
+    window.generateMIDI = function() {
+      origGenerateMIDI();
+      const status = document.getElementById('midiStatus');
+      status.textContent = 'MIDI file generated and download started.';
+      setTimeout(() => { status.textContent = ''; }, 3000);
+    };
+  </script>
+</body>
+</html>

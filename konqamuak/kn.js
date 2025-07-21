@@ -4,6 +4,9 @@
 // List of HTML files, titles, and emojis (auto-generated, all .html files)
 // List of HTML files, titles, and emojis (auto-generated, all .html files, no duplicates)
 const htmlPagesRaw = [
+  { file: "../konqamuak/reoskimiti/matuqa.html", title: "Matuqa", emoji: "📄" },
+  { file: "../konqamuak/faqastsv.html", title: "Faqastsv", emoji: "📄" },
+  { file: "../konqamuak/hatoqi.html", title: "Hatoqi", emoji: "📄" },
   { file: "../konqamuak/fakakupunqao.html", title: "Fakakupunqao", emoji: "🗂️" },
   { file: "../3d/index.html", title: "3D Navigation", emoji: "🧭" },
   { file: "../lip-sync/index.html", title: "Lip Sync", emoji: "👄" },

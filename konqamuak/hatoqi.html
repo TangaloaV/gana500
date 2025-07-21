@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Character Frequency Analyzer</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffea00;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff00cc;
+    }
+    textarea, button {
+      background: #111;
+      color: #fff;
+      border: 1px solid #ffea00;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    .output {
+      background: #111;
+      border: 1px solid #ff00cc;
+      color: #ffea00;
+      padding: 10px;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧬 Character Frequency Analyzer</h1>
+  <textarea id="inputText" rows="6" placeholder="Paste your paragraph here..."></textarea>
+  <button onclick="analyzeText()">Analyze</button>
+  <div class="output" id="output"></div>
+
+  <script>
+    function analyzeText() {
+      const text = document.getElementById('inputText').value;
+      const freq = {};
+      for (let char of text) {
+        freq[char] = (freq[char] || 0) + 1;
+      }
+      const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+      const result = sorted.map(([char, count]) =>
+        `${char === ' ' ? '[space]' : char === '\n' ? '[newline]' : char}: ${count}`
+      ).join('\n');
+      document.getElementById('output').textContent = result;
+    }
+  </script>
+</body>
+</html>
