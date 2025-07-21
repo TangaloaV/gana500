@@ -6,9 +6,9 @@
   <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.27/build/Midi.min.js"></script>
   <style>
     body {
-      background: #1a1a00;
-      color: #ffdc00;
-      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #ffe600;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
       margin: 0;
       min-height: 100vh;
       display: flex;
@@ -16,26 +16,27 @@
       align-items: center;
     }
     h1 {
-      color: #ffdc00;
+      color: #ffe600;
       margin-top: 32px;
-      text-shadow: 0 2px 8px #000, 0 0 2px #ffb300;
+      text-shadow: 0 0 8px #ffe600, 0 0 16px #39ff14;
     }
     .upload-zone {
       margin: 32px 0 16px 0;
-      background: #333300;
-      border: 2px dashed #ffb300;
+      background: rgba(20,20,20,0.92);
+      border: 2px dashed #39ff14;
       border-radius: 12px;
       padding: 24px 32px;
-      box-shadow: 0 2px 12px #0008;
+      box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
     }
     input[type="file"] {
       font-size: 1.1em;
-      color: #ffb300;
-      background: #222200;
-      border: none;
+      color: #ffe600;
+      background: #222;
+      border: 1.5px solid #39ff14;
       padding: 8px 16px;
       border-radius: 6px;
       margin-top: 8px;
+      box-shadow: 0 0 4px #39ff14;
     }
     .notes-table {
       width: 98%;

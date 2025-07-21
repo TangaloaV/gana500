@@ -5,11 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MIDI to Utterances Converter</title>
   <style>
-    body { font-family: sans-serif; margin: 2em; }
-    .container { max-width: 500px; margin: auto; }
-    input[type=file] { margin-bottom: 1em; }
-    button { padding: 0.5em 1em; }
-    #output { margin-top: 1em; }
+    body {
+      background: #111;
+      color: #ffe600;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+    }
+    .container {
+      max-width: 500px;
+      margin: 2em auto;
+      border-radius: 10px;
+      box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
+      background: rgba(20,20,20,0.92);
+      padding: 2em 2em 1.5em 2em;
+    }
+    input[type=file], input, select {
+      background: #222;
+      color: #ffe600;
+      border: 1.5px solid #39ff14;
+      border-radius: 4px;
+      box-shadow: 0 0 4px #39ff14;
+      margin: 0.2em 0;
+      padding: 0.3em;
+    }
+    button {
+      background: #111;
+      color: #ffe600;
+      border: 2px solid #39ff14;
+      border-radius: 6px;
+      box-shadow: 0 0 8px #39ff14, 0 0 2px #ffe600;
+      padding: 0.5em 1.2em;
+      margin: 0.3em 0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      background: #ffe600;
+      color: #111;
+      box-shadow: 0 0 16px #ffe600, 0 0 8px #39ff14;
+    }
+    h1 {
+      color: #ffe600;
+      text-shadow: 0 0 8px #ffe600, 0 0 16px #39ff14;
+      font-weight: bold;
+    }
+    #output {
+      margin-top: 1em;
+    }
+    ::selection {
+      background: #ffe600;
+      color: #111;
+    }
   </style>
 </head>
 <body>

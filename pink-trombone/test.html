@@ -1,5 +1,62 @@
 <html>
   <head>
+    <style>
+      body {
+        background: #111;
+        color: #ffe600;
+        font-family: 'Segoe UI', 'Arial', sans-serif;
+        margin: 0;
+        min-height: 100vh;
+      }
+      nav, a {
+        color: #39ff14;
+        text-shadow: 0 0 4px #39ff14;
+        font-weight: bold;
+      }
+      a:hover {
+        color: #fff;
+        text-shadow: 0 0 8px #ffe600, 0 0 16px #39ff14;
+      }
+      button {
+        background: #111;
+        color: #ffe600;
+        border: 2px solid #39ff14;
+        border-radius: 6px;
+        box-shadow: 0 0 8px #39ff14, 0 0 2px #ffe600;
+        padding: 0.5em 1.2em;
+        margin: 0.3em 0;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      button:hover {
+        background: #ffe600;
+        color: #111;
+        box-shadow: 0 0 16px #ffe600, 0 0 8px #39ff14;
+      }
+      input, select {
+        background: #222;
+        color: #ffe600;
+        border: 1.5px solid #39ff14;
+        border-radius: 4px;
+        box-shadow: 0 0 4px #39ff14;
+        margin: 0.2em 0;
+        padding: 0.3em;
+      }
+      ::selection {
+        background: #ffe600;
+        color: #111;
+      }
+      /* Neon border for main content */
+      body > *:not(nav) {
+        border-radius: 10px;
+        box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
+        margin: 1.5em auto;
+        max-width: 900px;
+        padding: 1.5em 2em;
+        background: rgba(20,20,20,0.92);
+      }
+    </style>
     <script src="/src/utils.js"></script>
 
     <script src="/pink-trombone/src/pink-trombone.min.js" type="module"></script>

@@ -7,8 +7,8 @@
   <style>
     body {
       background: #111;
-      color: #fff;
-      font-family: sans-serif;
+      color: #ffe600;
+      font-family: 'Segoe UI', 'Arial', sans-serif;
       margin: 0;
       overflow: hidden;
     }
@@ -17,16 +17,54 @@
       display: block;
       margin: 0 auto;
       cursor: crosshair;
+      border-radius: 10px;
+      box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
+      margin-top: 1.5em;
+      max-width: 1200px;
     }
     #controls {
       padding: 10px;
-      background: #000;
+      background: rgba(20,20,20,0.92);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      border-radius: 10px;
+      box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
+      margin: 1.5em auto 0 auto;
+      max-width: 1200px;
     }
     input, button {
       font-size: 1em;
+    }
+    input {
+      background: #222;
+      color: #ffe600;
+      border: 1.5px solid #39ff14;
+      border-radius: 4px;
+      box-shadow: 0 0 4px #39ff14;
+      margin: 0.2em 0;
+      padding: 0.3em;
+    }
+    button {
+      background: #111;
+      color: #ffe600;
+      border: 2px solid #39ff14;
+      border-radius: 6px;
+      box-shadow: 0 0 8px #39ff14, 0 0 2px #ffe600;
+      padding: 0.5em 1.2em;
+      margin: 0.3em 0;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    button:hover {
+      background: #ffe600;
+      color: #111;
+      box-shadow: 0 0 16px #ffe600, 0 0 8px #39ff14;
+    }
+    ::selection {
+      background: #ffe600;
+      color: #111;
     }
   </style>
 </head>
