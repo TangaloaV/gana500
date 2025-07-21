@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>WaspWord Generator</title>
+  <style>
+    body {
+      background-color: #0a0a0a;
+      color: #ffea00;
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #ff00cc;
+    }
+    textarea, input, button {
+      font-family: monospace;
+      background: #111;
+      color: #fff;
+      border: 1px solid #ffea00;
+      padding: 10px;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .output {
+      background: #111;
+      border: 1px solid #ff00cc;
+      color: #ffea00;
+      padding: 10px;
+      height: 300px;
+      overflow-y: scroll;
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🐝 WaspWord Generator</h1>
+
+  <label>Word Pattern Rules (use set labels, e.g., AAB, BBA, etc. One per line):</label>
+  <textarea id="patterns" rows="3">ABAB\nAABB\nBAAB</textarea>
+
+  <div id="setsArea">
+    <div class="set-box">
+      <label>Set <input class="set-label" value="A" maxlength="2" size="2" style="width:2em;text-align:center;">:</label>
+      <textarea class="set-input" data-label="A" rows="2">ก ข ฃ ค ฅ ฆ ง จ ฉ ช ซ ฌ ญ ฎ ฏ ฐ ฑ ฒ ณ ด ต ถ ท ธ น บ ป ผ ฝ พ ฟ ภ ม ย ร ล ว ศ ษ ส ห ฬ อ ฮ</textarea>
+    </div>
+    <div class="set-box">
+      <label>Set <input class="set-label" value="B" maxlength="2" size="2" style="width:2em;text-align:center;">:</label>
+      <textarea class="set-input" data-label="B" rows="2">ะ า ิ ี ึ ื ุ ู เ แ โ ใ ไ</textarea>
+    </div>
+  </div>
+  <button type="button" onclick="addSetBox()">Add Set</button>
+
+
+
+  <label>Exclusions (words to exclude, separated by spaces or newlines):</label>
+  <textarea id="exclusions" rows="1"></textarea>
+
+  <div style="margin: 0.7em 0;">
+    <label>Number of words: <input type="number" id="numWords" min="1" max="2000" value="500" style="width:5em;"></label>
+    <label style="margin-left:1.5em;"><input type="checkbox" id="asList" checked> Output as list</label>
+    <label style="margin-left:1.5em;"><input type="checkbox" id="noDuplicates" checked> Filter duplicates</label>
+  </div>
+
+  <div style="margin: 0.7em 0;">
+    <label><input type="checkbox" id="asList" checked> Output as list</label>
+    <label style="margin-left:1.5em;"><input type="checkbox" id="noDuplicates" checked> Filter duplicates</label>
+  </div>
+
+  <button onclick="generateWords()">Generate Words</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    function getSetLabels() {
+      // Returns an array of set labels currently in the UI
+      return Array.from(document.querySelectorAll('.set-label')).map(t => t.value.trim()).filter(Boolean);
+    }
+
+    function addSetBox() {
+      const setsArea = document.getElementById('setsArea');
+      const labels = getSetLabels();
+      // Find next available label (A-Z, then AA, AB, ...)
+      let nextLabel = '';
+      for (let i = 0; i < 702; i++) { // A-Z, AA-ZZ
+        let l = '';
+        if (i < 26) l = String.fromCharCode(65 + i);
+        else l = String.fromCharCode(65 + Math.floor((i-26)/26)) + String.fromCharCode(65 + (i-26)%26);
+        if (!labels.includes(l)) { nextLabel = l; break; }
+      }
+      const div = document.createElement('div');
+      div.className = 'set-box';
+      div.innerHTML = `<label>Set <input class="set-label" value="${nextLabel}" maxlength="2" size="2" style="width:2em;text-align:center;">:</label><textarea class="set-input" data-label="${nextLabel}" rows="2"></textarea>`;
+      setsArea.appendChild(div);
+    }
+
+    function generateWords() {
+      // Get all rules
+      const patternLines = document.getElementById('patterns').value.trim().split(/\n|,/).map(s => s.trim()).filter(Boolean);
+      // Get all sets
+      const setBoxes = Array.from(document.querySelectorAll('.set-box'));
+      const sets = {};
+      setBoxes.forEach(box => {
+        const label = box.querySelector('.set-label').value.trim();
+        const arr = box.querySelector('.set-input').value.trim().split(/\s+/).filter(Boolean);
+        if (label) sets[label] = arr;
+      });
+      const exclusions = new Set(document.getElementById('exclusions').value.trim().split(/\s+/).filter(Boolean));
+      const asList = document.getElementById('asList').checked;
+      const noDuplicates = document.getElementById('noDuplicates').checked;
+      const maxWords = Math.max(1, Math.min(2000, parseInt(document.getElementById('numWords').value) || 1));
+
+      let words = [];
+      for (let i = 0; i < maxWords * 3 && words.length < maxWords; i++) { // up to 3x tries for uniqueness
+        const pat = patternLines[Math.floor(Math.random() * patternLines.length)];
+        let word = '';
+        for (const ch of pat) {
+          if (sets[ch]) {
+            const arr = sets[ch];
+            if (arr.length > 0) word += arr[Math.floor(Math.random() * arr.length)];
+          } else {
+            word += ch; // literal character if not a set
+          }
+        }
+        if (exclusions.has(word)) continue;
+        if (noDuplicates && words.includes(word)) continue;
+        words.push(word);
+      }
+      let output = '';
+      if (asList) {
+        output = words.length ? words.map(w => '- ' + w).join('\n') : '';
+      } else {
+        output = words.join(' ');
+      }
+      document.getElementById('output').textContent = output;
+    }
+  </script>
+</body>
+</html>
