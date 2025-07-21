@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <title>Lafukauta Sliding Mbira</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #eee;
+      font-family: sans-serif;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      background: #222;
+    }
+    #noteDisplay {
+      position: absolute;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.5em;
+      color: #7cfcc3;
+      pointer-events: none;
+    }
+    #uploadZone {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      z-index: 10;
+    }
+    input[type="file"] {
+      background: #444;
+      color: #ccc;
+      border: none;
+      padding: 6px 12px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="uploadZone">
+    <label>
+      Upload mbira sample:
+      <input type="file" id="sampleInput" accept=".mp3,.ogg,.wav">
+    </label>
+  </div>
+  <canvas id="mbiraCanvas" width="1485" height="827"></canvas>
+  <div id="noteDisplay">🎵 G♯3 (-3.89 semitones)</div>
+
+  <script>
+    const canvas = document.getElementById('mbiraCanvas');
+    const ctx = canvas.getContext('2d');
+    const noteDisplay = document.getElementById('noteDisplay');
+    const sampleInput = document.getElementById('sampleInput');
+
+    let audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    let sampleBuffer = null;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    sampleInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const arrayBuffer = await file.arrayBuffer();
+      sampleBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    });
+
+    function getNoteName(semitones) {
+      const baseNote = 48; // C3
+      const noteNames = ['C', 'C♯', 'D', 'D♯', 'E', 'F', 'F♯', 'G', 'G♯', 'A', 'A♯', 'B'];
+      const total = baseNote + semitones;
+      const noteIndex = ((total % 12) + 12) % 12;
+      const octave = Math.floor(total / 12);
+      return noteNames[noteIndex] + octave;
+    }
+
+    function getContinuousSemitoneFromMouseX(x, width) {
+      return ((x / width) * 24 - 12); // -12 to +12
+    }
+
+    let currentSemitone = 0;
+    let activeSource = null;
+    let pitchGainNode = null;
+    let pitchRateParam = null;
+    let animationFrameId = null;
+
+    canvas.addEventListener('mousedown', (e) => {
+      if (!sampleBuffer) return;
+
+      const x = e.clientX;
+      const width = canvas.width;
+      currentSemitone = getContinuousSemitoneFromMouseX(x, width);
+
+      const source = audioContext.createBufferSource();
+      const gainNode = audioContext.createGain();
+      const playbackRate = Math.pow(2, currentSemitone / 12);
+
+      source.buffer = sampleBuffer;
+      source.loop = true;
+      source.playbackRate.value = playbackRate;
+
+      source.connect(gainNode).connect(audioContext.destination);
+      source.start();
+
+      activeSource = source;
+      pitchGainNode = gainNode;
+      pitchRateParam = source.playbackRate;
+
+      updatePitchLoop();
+    });
+
+    canvas.addEventListener('mouseup', () => {
+      if (activeSource) {
+        activeSource.stop();
+        activeSource.disconnect();
+        activeSource = null;
+      }
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+    });
+
+    canvas.addEventListener('mousemove', (e) => {
+      const x = e.clientX;
+      const width = canvas.width;
+      currentSemitone = getContinuousSemitoneFromMouseX(x, width);
+    });
+
+    function updatePitchLoop() {
+      if (activeSource && pitchRateParam) {
+        const playbackRate = Math.pow(2, currentSemitone / 12);
+        pitchRateParam.value = playbackRate;
+
+        const noteName = getNoteName(Math.round(currentSemitone));
+        noteDisplay.innerText = `🎵 ${noteName} (${currentSemitone.toFixed(2)} semitones)`;
+      }
+      animationFrameId = requestAnimationFrame(updatePitchLoop);
+    }
+
+    function drawTineTrack() {
+      const { width, height } = canvas;
+      ctx.clearRect(0, 0, width, height);
+
+      ctx.fillStyle = '#444';
+      ctx.fillRect(width * 0.1, height * 0.4, width * 0.8, height * 0.2);
+
+      const x = width * (currentSemitone + 12) / 24;
+      ctx.fillStyle = '#7cfcc3';
+      ctx.beginPath();
+      ctx.arc(x, height * 0.5, 12, 0, Math.PI * 2);
+      ctx.fill();
+
+      for (let i = -12; i <= 12; i++) {
+        const tickX = width / 2 + (i / 24) * width;
+        ctx.strokeStyle = '#666';
+        ctx.beginPath();
+        ctx.moveTo(tickX, height * 0.4);
+        ctx.lineTo(tickX, height * 0.6);
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(drawTineTrack);
+    }
+
+    drawTineTrack();
+  </script>
+
+
+</body></html>
