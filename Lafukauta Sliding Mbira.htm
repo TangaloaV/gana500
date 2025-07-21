@@ -59,8 +59,21 @@
     const noteDisplay = document.getElementById('noteDisplay');
     const sampleInput = document.getElementById('sampleInput');
 
+
     let audioContext = new (window.AudioContext || window.webkitAudioContext)();
     let sampleBuffer = null;
+
+    // Load default sample (pira.ogg) unless user uploads one
+    async function loadDefaultSample() {
+      try {
+        const response = await fetch('pira.ogg');
+        const arrayBuffer = await response.arrayBuffer();
+        sampleBuffer = await audioContext.decodeAudioData(arrayBuffer);
+      } catch (e) {
+        console.error('Failed to load default sample:', e);
+      }
+    }
+    loadDefaultSample();
 
     function resizeCanvas() {
       canvas.width = window.innerWidth;

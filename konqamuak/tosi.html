@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tosi Onscreen Keyboard</title>
+  <style>
+    body {
+      background: #222;
+      color: #eee;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      margin-top: 40px;
+      width: 100%;
+      max-width: 600px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    #output {
+      width: 100%;
+      font-size: 2em;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      background: #111;
+      color: #7cfcc3;
+      box-sizing: border-box;
+      min-height: 2.5em;
+      resize: vertical;
+    }
+    .keyboard {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+    .row {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+    .key {
+      font-size: 1.7em;
+      padding: 10px 16px;
+      background: #333;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      min-width: 2.2em;
+      text-align: center;
+      user-select: none;
+    }
+    .key:hover {
+      background: #7cfcc3;
+      color: #222;
+    }
+    .controls {
+      margin-bottom: 12px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .toggle-btn {
+      padding: 6px 18px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      background: #444;
+      color: #eee;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .toggle-btn.active {
+      background: #7cfcc3;
+      color: #222;
+    }
+    .clear-btn {
+      padding: 6px 18px;
+      font-size: 1em;
+      border-radius: 6px;
+      border: none;
+      background: #c33;
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .clear-btn:hover {
+      background: #f55;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <textarea id="output" rows="2" readonly placeholder="Click keys below to enter text..."></textarea>
+    <div class="controls">
+      <button id="set1" class="toggle-btn active">Letter Set 1</button>
+      <button id="set2" class="toggle-btn">Letter Set 2</button>
+      <button id="clear" class="clear-btn">Clear</button>
+    </div>
+    <div class="keyboard" id="keyboard"></div>
+  </div>
+  <script>
+    // Letter sets as 2D arrays (rows)
+    const letterSet1 = [
+      ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", "", "", "", "", "", "", "", ""]
+    ];
+    const letterSet2 = [
+      ["", "", ""],
+      ["", "", "", "", "", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""],
+      ["", "", "", "", ""]
+    ];
+
+    let currentSet = 1;
+    const output = document.getElementById('output');
+    const keyboard = document.getElementById('keyboard');
+    const set1Btn = document.getElementById('set1');
+    const set2Btn = document.getElementById('set2');
+    const clearBtn = document.getElementById('clear');
+
+    function renderKeyboard() {
+      keyboard.innerHTML = '';
+      const set = currentSet === 1 ? letterSet1 : letterSet2;
+      set.forEach(row => {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'row';
+        row.forEach(letter => {
+          const btn = document.createElement('button');
+          btn.className = 'key';
+          btn.textContent = letter;
+          btn.onclick = () => {
+            output.value += letter;
+          };
+          rowDiv.appendChild(btn);
+        });
+        keyboard.appendChild(rowDiv);
+      });
+    }
+
+    set1Btn.onclick = () => {
+      currentSet = 1;
+      set1Btn.classList.add('active');
+      set2Btn.classList.remove('active');
+      renderKeyboard();
+    };
+    set2Btn.onclick = () => {
+      currentSet = 2;
+      set2Btn.classList.add('active');
+      set1Btn.classList.remove('active');
+      renderKeyboard();
+    };
+    clearBtn.onclick = () => {
+      output.value = '';
+    };
+
+    renderKeyboard();
+  </script>
+</body>
+</html>
