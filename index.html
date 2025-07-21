@@ -1,410 +1,187 @@
-<html>
-  <head>
-    <title>Pink Trombone Demos</title>
-    <style>
-      body {
-        background: #111;
-        color: #ffe600;
-        font-family: 'Segoe UI', 'Arial', sans-serif;
-        margin: 0;
-        padding: 0 0 2em 0;
-        min-height: 100vh;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GRUB Boot Menu - Pink Trombone Demos</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: #111;
+      color: #b8b8b8;
+      font-family: 'JetBrains Mono', 'Fira Code', 'monospace', 'Segoe UI', Arial, sans-serif;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #222 60%, #111 100%);
+    }
+    .grub-box {
+      background: #181818;
+      border: 2.5px solid #444;
+      border-radius: 10px;
+      box-shadow: 0 0 32px #000a, 0 0 8px #7aa2f7cc;
+      padding: 2.5em 2.5em 2em 2.5em;
+      min-width: 420px;
+      max-width: 96vw;
+      min-height: 320px;
+      text-align: left;
+    }
+    .grub-title {
+      color: #7aa2f7;
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 1.2em;
+      text-shadow: 0 0 8px #7aa2f7cc;
+    }
+    .grub-menu {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.2em 0;
+    }
+    .grub-menu li {
+      padding: 0.5em 1.2em;
+      font-size: 1.15em;
+      border-radius: 6px;
+      margin-bottom: 0.2em;
+      cursor: pointer;
+      background: none;
+      color: #b8b8b8;
+      transition: background 0.18s, color 0.18s;
+      border: none;
+      outline: none;
+      display: flex;
+      align-items: center;
+    }
+    .grub-menu li.selected, .grub-menu li:hover {
+      background: #7aa2f7;
+      color: #181818;
+      font-weight: bold;
+    }
+    .grub-countdown {
+      color: #ffe600;
+      font-size: 1.1em;
+      margin-bottom: 1.2em;
+      text-align: center;
+      text-shadow: 0 0 8px #ffe600cc;
+    }
+    .grub-more {
+      margin-top: 1.2em;
+      text-align: left;
+    }
+    .grub-more-btn {
+      background: #222;
+      color: #7aa2f7;
+      border: 1.5px solid #7aa2f7;
+      border-radius: 6px;
+      padding: 0.4em 1.2em;
+      font-size: 1em;
+      cursor: pointer;
+      margin-bottom: 0.7em;
+      font-family: inherit;
+      transition: background 0.18s, color 0.18s;
+    }
+    .grub-more-btn:hover {
+      background: #7aa2f7;
+      color: #181818;
+    }
+    .grub-more-list {
+      margin-top: 0.5em;
+      padding-left: 0.5em;
+    }
+    .grub-more-list li {
+      font-size: 1em;
+      padding: 0.3em 0.7em;
+      border-radius: 5px;
+      margin-bottom: 0.1em;
+      cursor: pointer;
+      color: #b8b8b8;
+      background: none;
+      transition: background 0.18s, color 0.18s;
+      display: flex;
+      align-items: center;
+    }
+    .grub-more-list li.selected, .grub-more-list li:hover {
+      background: #7aa2f7;
+      color: #181818;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="grub-box">
+    <div class="grub-title">GRUB Boot Menu - Pink Trombone Demos</div>
+    <div class="grub-countdown" id="countdown">Booting Hyprland Home in <span id="timer">5</span> seconds...</div>
+    <ul class="grub-menu">
+      <li class="selected" id="boot-hyprland">🖥️ Hyprland Home</li>
+    </ul>
+    <div class="grub-more">
+      <button class="grub-more-btn" id="moreBtn">More Options ▼</button>
+      <ul class="grub-more-list" id="moreList" style="display:none">
+        <li data-url="/konqamuak/ranqimatak.html">🎶 Ranqimatak MIDI Note Viewer</li>
+        <li data-url="/konqamuak/tosi.html">⌨️ Tosi Onscreen Keyboard</li>
+        <li data-url="/Lafukauta%20Sliding%20Mbira.htm">🎹 Lafukauta Sliding Mbira</li>
+        <li data-url="/nganafuawai3.html">🔄 Bidirectional Script Swapper</li>
+        <li data-url="/pink-trombone">🎺 Pink Trombone</li>
+        <li data-url="/debug">🐞 Debug</li>
+        <li data-url="/pitch">🎤 Pitch</li>
+        <li data-url="/machine-learning">🦾 Machine Learning</li>
+        <li data-url="/knn">🧠 KNN</li>
+        <li data-url="/3d">🧭 3D Navigation</li>
+        <li data-url="/synth/synthesizer.html">🎹 Rea Ngana Grid</li>
+        <li data-url="/tts">🗣️ Text to Speech</li>
+        <li data-url="/lip-sync">👄 Avatar Lip Sync</li>
+        <li data-url="/pronunciation">🔊 Pronunciation</li>
+        <li data-url="/rhyming">📝 Rhyming Dictionary</li>
+        <li data-url="/edge-impulse/">🤖 Edge Impulse</li>
+        <li data-url="/midi2utterances/">🎼 MIDI to Utterances Converter</li>
+        <li data-url="/">🧪 Pink Trombone Demos (Main)</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    let countdown = 5;
+    let timerId = setInterval(() => {
+      countdown--;
+      document.getElementById('timer').textContent = countdown;
+      if (countdown <= 0) {
+        clearInterval(timerId);
+        window.location.href = '/konqamuak/km.html';
       }
-      h1, h2, h3, h4, h5, h6 {
-        color: #ffe600;
-        text-shadow: 0 0 8px #ffe600, 0 0 16px #39ff14;
-        font-weight: bold;
+    }, 1000);
+
+    // Cancel countdown and boot to selected page
+    document.getElementById('boot-hyprland').onclick = function() {
+      clearInterval(timerId);
+      window.location.href = '/konqamuak/km.html';
+    };
+
+    // More Options toggle
+    const moreBtn = document.getElementById('moreBtn');
+    const moreList = document.getElementById('moreList');
+    let moreOpen = false;
+    moreBtn.onclick = function() {
+      moreOpen = !moreOpen;
+      moreList.style.display = moreOpen ? '' : 'none';
+      moreBtn.textContent = moreOpen ? 'More Options ▲' : 'More Options ▼';
+      if (moreOpen) {
+        clearInterval(timerId);
+        document.getElementById('countdown').style.display = 'none';
       }
-      a {
-        color: #39ff14;
-        text-shadow: 0 0 4px #39ff14;
-        font-weight: bold;
-        transition: color 0.2s;
+    };
+
+    // Boot to selected option from more list
+    moreList.onclick = function(e) {
+      if (e.target.tagName === 'LI' && e.target.dataset.url) {
+        clearInterval(timerId);
+        window.location.href = e.target.dataset.url;
       }
-      a:hover {
-        color: #fff;
-        text-shadow: 0 0 8px #ffe600, 0 0 16px #39ff14;
-      }
-      nav, p, label, textarea, select, input, button {
-        font-size: 1.1em;
-      }
-      button, input[type="button"], input[type="submit"] {
-        background: #111;
-        color: #ffe600;
-        border: 2px solid #39ff14;
-        border-radius: 6px;
-        box-shadow: 0 0 8px #39ff14, 0 0 2px #ffe600;
-        padding: 0.5em 1.2em;
-        margin: 0.3em 0;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-      }
-      button:hover, input[type="button"]:hover, input[type="submit"]:hover {
-        background: #ffe600;
-        color: #111;
-        box-shadow: 0 0 16px #ffe600, 0 0 8px #39ff14;
-      }
-      textarea, input, select {
-        background: #222;
-        color: #ffe600;
-        border: 1.5px solid #39ff14;
-        border-radius: 4px;
-        box-shadow: 0 0 4px #39ff14;
-        margin: 0.2em 0;
-        padding: 0.3em;
-      }
-      ::selection {
-        background: #ffe600;
-        color: #111;
-      }
-      nav {
-        background: rgba(34,34,34,0.95);
-        padding: 0.7em 1.5em;
-        border-bottom: 2px solid #39ff14;
-        box-shadow: 0 2px 12px #39ff14;
-        margin-bottom: 1.5em;
-      }
-      /* Neon border for main content */
-      body > *:not(nav) {
-        border-radius: 10px;
-        box-shadow: 0 0 24px #ffe60044, 0 0 8px #39ff1444;
-        margin: 1.5em auto;
-        max-width: 900px;
-        padding: 1.5em 2em;
-        background: rgba(20,20,20,0.92);
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Pink Trombone Demos</h1>
-
-    <p>
-      <i
-        >A collection of demos using
-        <a href="http://venuspatrol.nfshost.com/" target="_blank"
-          >Neil Thapen's</a
-        >
-        <a href="https://dood.al/pinktrombone/" target="_blank">Pink Trombone</a
-        >.</i
-      >
-    </p>
-
-    <p>
-      The webpages work by communicating with each other using the
-      <a
-        href="https://developer.mozilla.org/en-US/docs/Web/API/BroadcastChannel"
-        target="_blank"
-        >BroadcastChannel API</a
-      >, so some pages need other pages open to work, e.g. the
-      <a href="tts/">Text-to-Speech</a>
-      webpage sends messages to the
-      <a href="pink-trombone/">Pink Trombone</a> webpage.
-    </p>
-
-    <p>
-      Source code is available on
-      <a href="https://glitch.com/edit/#!/pink-trombone-demos" target="_blank"
-        >glitch</a
-      >
-      and
-      <a href="https://github.com/zakaton/pink-trombone-demos" target="_blank"
-        >github</a
-      >
-    </p>
-
-    <hr />
-
-    <h3 id="hyprland-home">Hyprland Style Home Page</h3>
-    <p>
-      <a href="/konqamuak/km.html" style="display:inline-block; background:#7aa2f7; color:#1a1b26; border-radius:8px; padding:0.7em 1.5em; font-weight:bold; font-size:1.1em; text-decoration:none; box-shadow:0 0 12px #7aa2f7cc, 0 0 4px #7dcfff99; transition:background 0.18s, color 0.18s;">Open Hyprland Home</a>
-    </p>
-
-    <h3 id="ranqimatak">
-      <a href="/konqamuak/ranqimatak.html" target="_blank">Ranqimatak MIDI Note Viewer</a>
-    </h3>
-    <p>
-      Upload a MIDI file to view all its notes (in Hz), note lengths, and other details. Useful for analyzing melodies and timing.
-    </p>
-    <p>
-      <i>standalone tool, MIDI analysis</i>
-    </p>
-
-    <h3 id="tosi">
-      <a href="/konqamuak/tosi.html" target="_blank">Tosi Onscreen Keyboard</a>
-    </h3>
-    <p>
-      Use this onscreen keyboard to type special letters required in some demos. Copy and paste the output into other tools as needed.
-    </p>
-    <p>
-      <i>Required for entering unique script letters in certain demos</i>
-    </p>
-
-    <h3 id="lafukauta-mbira">
-      <a href="/Lafukauta%20Sliding%20Mbira.htm" target="_blank">Lafukauta Sliding Mbira</a>
-    </h3>
-    <p>
-      An interactive sliding mbira (thumb piano) demo. Explore musical patterns and tunings.
-    </p>
-    <p>
-      <i>standalone tool, musical instrument demo</i>
-    </p>
-
-    <hr />
-
-    <h3 id="nganafuawai3">
-      <a href="/nganafuawai3.html" target="_blank">Nganafuawai3</a>
-    </h3>
-    <p>
-      A creative experiment or demo. (Add a more detailed description if desired.)
-    </p>
-    <p>
-      <i>standalone tool</i>
-    </p>
-    <hr />
-
-    <h3 id="pink-trombone">
-      <a href="/pink-trombone" target="_blank">Pink Trombone</a>
-    </h3>
-    <p>
-      Opens the "Pink Trombone" Speech Synthesizer. Receives messages from the
-      other webpages to control it.
-      <span hidden
-        >Also includes a
-        <a href="/pink-trombone/?dark" target="_blank">dark mode</a> and
-        <a href="/pink-trombone/default.html" target="_blank"
-          >multi-channel mode</a
-        >
-        (you won't need to use these versions)</span
-      >
-    </p>
-
-    <hr />
-
-    <h3 id="debug"><a href="/debug" target="_blank">Debug</a></h3>
-    <p>Used for sending test messages to Pink Trombone</p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <h3 id="pitch"><a href="/pitch" target="_blank">Pitch</a></h3>
-    <p>Gets the microphone's Pitch and sends it to Pink Trombone.</p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <!--
-    <h3 id="machine-learning">
-      Machine Learning (<a href="/machine-learning" target="_blank"
-        >Meyda.js MFCC</a
-      >) <span hidden>(<a href="/machine-learning/?essentia" target="_blank"
-        >Essentia.js Mel Spectrogram</a
-      >)</span>
-    </h3>
-    <p>
-      Uses
-      <a href="https://ml5js.org/" target="_blank">ML5.js</a>
-      and <a href="https://meyda.js.org/" target="_blank">Meyda.js's</a>
-      <a
-        href="https://en.wikipedia.org/wiki/Mel-frequency_cepstrum#:~:text=Mel%2Dfrequency%20cepstral%20coefficients%20(MFCCs,%2Da%2Dspectrum%22)."
-        target="_blank"
-        >MFCC</a
-      >
-      <span hidden>(or
-        <a href="https://mtg.github.io/essentia.js/" target="_blank"
-          >Essentia.js's</a
-        >
-        <a href="https://essentiajs-melspectrogram.netlify.app/" target="_blank"
-          >Mel Spectrogram</a
-        >)</span> to create a
-      <a
-        href="https://learn.ml5js.org/#/reference/neural-network"
-        target="_blank"
-        >neural network</a
-      >
-      that maps speech to Pink Trombone parameters.
-    </p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-    -->
-
-    <h3 id="knn">
-      KNN Classifier (<a href="/knn" target="_blank">Meyda.js MFCC</a>)
-      <span hidden
-        >(<a href="/knn/?essentia" target="_blank"
-          >Essentia.js Mel Spectrogram</a
-        >)</span
-      >
-    </h3>
-
-    <p></p>
-    <p>
-      Uses
-      <a href="https://ml5js.org/" target="_blank">ML5.js</a>
-      and <a href="https://meyda.js.org/" target="_blank">Meyda.js's</a>
-      <a
-        href="https://en.wikipedia.org/wiki/Mel-frequency_cepstrum#:~:text=Mel%2Dfrequency%20cepstral%20coefficients%20(MFCCs,%2Da%2Dspectrum%22)."
-        target="_blank"
-        >MFCC</a
-      >
-      <span hidden
-        >(or
-        <a href="https://mtg.github.io/essentia.js/" target="_blank"
-          >Essentia.js's</a
-        >
-        <a href="https://essentiajs-melspectrogram.netlify.app/" target="_blank"
-          >Mel Spectrogram</a
-        >)</span
-      >
-      to create a
-      <a
-        href="https://learn.ml5js.org/#/reference/knn-classifier"
-        target="_blank"
-        >KNN Classifier</a
-      >
-      that maps speech to Pink Trombone parameters.
-    </p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <h3 id="3d"><a href="/3d" target="_blank">3D Navigation</a></h3>
-
-    <p></p>
-    <p>
-      Moves around an
-      <a href="https://aframe.io/" target="_blank">A-FRAME</a> scene using the
-      <a href="#knn">KNN Classifier</a>, using classes <b><i>forward</i></b
-      >, <b><i>backward</i></b
-      >, <b><i>left</i></b
-      >, <b><i>right</i></b
-      >, <b><i>up</i></b
-      >, and <b><i>down</i></b>
-    </p>
-    <p>
-      <i
-        >requires <a href="#pink-trombone">Pink Trombone</a> and
-        <a href="#knn">KNN Classifier</a></i
-      >
-    </p>
-
-    <hr />
-    <h3 id="reangrid">
-      <a href="/synth/synthesizer.html" target="_blank">Rea Ngana Grid</a>
-    </h3>
-    <p>
-      A kalimba-style grid interface where you can place phonemes on a
-      pitch/time grid to create utterances visually. Snaps to BPM and pitch
-      scale like a vocal sequencer.
-    </p>
-    <p>
-      <i
-        >requires <a href="#pink-trombone">Pink Trombone</a> and
-        <a href="#tts">Text to Speech</a></i
-      >
-    </p>
-
-    <h3 id="tts"><a href="/tts" target="_blank">Text to Speech</a></h3>
-
-    <p></p>
-    <p>
-      Converts text to timed phonemes, and then sends the timed phonemes to the
-      Pink Trombone.
-    </p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <h3 id="lip-sync">
-      <a href="/lip-sync" target="_blank">Avatar Lip Sync</a>
-    </h3>
-
-    <p></p>
-    <p>
-      Receives timed phonemes from <a href="#tts">Text to Speech</a> and
-      animates a
-      <a href="https://readyplayer.me/" target="_blank">Ready Player Me</a>
-      avatar's mouth.
-    </p>
-    <p>
-      <i
-        >requires <a href="#pink-trombone">Pink Trombone</a> and
-        <a href="#tts">Text to Speech</a></i
-      >
-    </p>
-
-    <hr />
-
-    <h3 id="pronunciation">
-      <a href="/pronunciation" target="_blank">Pronunciation</a>
-    </h3>
-
-    <p></p>
-    <p>
-      Displays the pronunciation of a word, and speaks it aloud as one mouses
-      over the phonemes. One can also speak the phonemes aloud to "read" the
-      word
-    </p>
-    <p>
-      <i
-        >requires <a href="#pink-trombone">Pink Trombone</a> and
-        <a href="#knn">KNN Classifier</a></i
-      >
-    </p>
-
-    <hr />
-
-    <h3 id="rhyming">
-      <a href="/rhyming" target="_blank">Rhyming Dictionary</a>
-    </h3>
-
-    <p></p>
-    <p>Type in a phrase and see all the possible rhyming phrases</p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <h3 id="edgeImpulse">
-      <a href="/edge-impulse/" target="_blank">Edge Impulse</a>
-    </h3>
-    <!-- iframe goes here -->
-    <p>
-      <a href="" target="_blank">YouTube Video</a>
-    </p>
-    <p>
-      Use Edge Impulse to create a model to control Pink Trombone with your
-      voice
-    </p>
-    <p>
-      <i>requires <a href="#pink-trombone">Pink Trombone</a></i>
-    </p>
-
-    <hr />
-
-    <h3 id="midi2utterances">
-      <a href="/midi2utterances/" target="_blank">MIDI to Utterances Converter</a>
-    </h3>
-    <p>
-      Upload a MIDI file and convert it to Lō'ata’s key-frame TXT format for use with Pink Trombone demos.
-    </p>
-    <p>
-      <i>standalone tool, outputs compatible utterance files</i>
-    </p>
-
-    <hr />
-    <p></p>
-  </body>
+    };
+  </script>
+</body>
 </html>

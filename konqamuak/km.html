@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <style>
+    #taskbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 44px;
+      background: rgba(30,32,48,0.97);
+      border-bottom: 2px solid #7aa2f7;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      z-index: 10;
+      box-shadow: 0 2px 12px #7aa2f744;
+      padding: 0 1.5em;
+      font-size: 1.1em;
+    }
+    #taskbar .left {
+      display: flex;
+      align-items: center;
+      gap: 1.2em;
+    }
+    #taskbar .os-btn {
+      background: #7aa2f7;
+      color: #1a1b26;
+      border: none;
+      border-radius: 7px;
+      padding: 0.4em 1.2em;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      margin-right: 0.7em;
+      box-shadow: 0 0 8px #7aa2f7cc;
+      transition: background 0.18s, color 0.18s;
+    }
+    #taskbar .os-btn:hover {
+      background: #f7768e;
+      color: #fff;
+    }
+    #taskbar .clock {
+      color: #c0caf5;
+      font-family: inherit;
+      font-size: 1.08em;
+      letter-spacing: 0.04em;
+      text-shadow: 0 0 8px #7aa2f7cc;
+      font-weight: bold;
+    }
+  </style>
   <meta charset="UTF-8">
   <title>KN - Hyprland Style Launcher</title>
   <style>
@@ -112,9 +160,30 @@
   </style>
 </head>
 <body>
+  <div id="taskbar">
+    <div class="left">
+      <button class="os-btn" onclick="window.location.href='/index.html'">🖥️ GRUB Menu</button>
+      <span style="font-weight:bold; color:#7aa2f7;">Hyprland Launcher</span>
+    </div>
+    <span class="clock" id="clock"></span>
+  </div>
   <div id="overlay"></div>
-  <ul id="fileList"></ul>
+  <ul id="fileList" style="top:60px;"></ul>
   <div id="windowContainer"></div>
   <script src="kn.js"></script>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      // Convert to GMT+13
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const gmt13 = new Date(utc + 13 * 3600000);
+      const pad = n => n.toString().padStart(2, '0');
+      const dateStr = `${gmt13.getFullYear()}-${pad(gmt13.getMonth()+1)}-${pad(gmt13.getDate())}`;
+      const timeStr = `${pad(gmt13.getHours())}:${pad(gmt13.getMinutes())}:${pad(gmt13.getSeconds())}`;
+      document.getElementById('clock').textContent = dateStr + ' ' + timeStr + ' GMT+13';
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
 </body>
 </html>

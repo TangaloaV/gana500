@@ -1,8 +1,9 @@
 // konqamuak/kn.js
 // Handles floating window logic for the new landing page
 
-// List of HTML files, titles, and emojis
-const htmlPages = [
+// List of HTML files, titles, and emojis (auto-generated, all .html files)
+// List of HTML files, titles, and emojis (auto-generated, all .html files, no duplicates)
+const htmlPagesRaw = [
   { file: "../3d/index.html", title: "3D Navigation", emoji: "🧭" },
   { file: "../lip-sync/index.html", title: "Lip Sync", emoji: "👄" },
   { file: "../pitch/index.html", title: "Pitch", emoji: "🎤" },
@@ -11,7 +12,7 @@ const htmlPages = [
   { file: "../pink-trombone/default.html", title: "Pink Trombone (Default)", emoji: "🎺" },
   { file: "../pink-trombone/index.html", title: "Pink Trombone", emoji: "🎺" },
   { file: "../synth/synthesizer.html", title: "Rea Ngana Kalimba Grid", emoji: "🎹" },
-  { file: "../index.html", title: "Pink Trombone Demos", emoji: "🧪" },
+  { file: "../index.html", title: "GRUB Boot Menu - Pink Trombone Demos", emoji: "🧪" },
   { file: "../edge-impulse/index.html", title: "Edge Impulse", emoji: "🤖" },
   { file: "../knn/index.html", title: "KNN", emoji: "🧠" },
   { file: "../midi2utterances/index.html", title: "MIDI to Utterances Converter", emoji: "🎼" },
@@ -22,7 +23,17 @@ const htmlPages = [
   { file: "../nganafuawai3.html", title: "Bidirectional Script Swapper", emoji: "🔄" },
   { file: "tosi.html", title: "Tosi Onscreen Keyboard", emoji: "⌨️" },
   { file: "ranqimatak.html", title: "Ranqimatak MIDI Note Viewer", emoji: "🎶" },
+  { file: "../Lafukauta Sliding Mbira.htm", title: "Lafukauta Sliding Mbira", emoji: "🎹" },
+  { file: "../konqamuak/km.html", title: "Hyprland Style Launcher", emoji: "🖥️" },
 ];
+
+// Remove duplicates by file path
+const seen = new Set();
+const htmlPages = htmlPagesRaw.filter(p => {
+  if (seen.has(p.file)) return false;
+  seen.add(p.file);
+  return true;
+});
 
 const container = document.getElementById('windowContainer');
 
