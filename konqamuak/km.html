@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KN - Hyprland Style Launcher</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    body {
+      width: 100vw;
+      height: 100vh;
+      background: #1a1b26 url('../waka.png') center center/cover no-repeat;
+      font-family: 'JetBrains Mono', 'Fira Code', 'monospace', 'Segoe UI', Arial, sans-serif;
+      color: #c0caf5;
+    }
+    #overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(30, 32, 48, 0.55);
+      z-index: 0;
+    }
+    #fileList {
+      position: absolute;
+      left: 2vw;
+      top: 8vh;
+      width: 260px;
+      background: rgba(40, 42, 54, 0.92);
+      border-radius: 12px;
+      box-shadow: 0 0 24px #7aa2f7cc, 0 0 8px #7dcfff99;
+      padding: 1.2em 0.7em 1.2em 1.2em;
+      border: 2px solid #7aa2f7;
+      z-index: 2;
+      list-style: none;
+      font-size: 1.1em;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    #fileList li {
+      margin: 0.3em 0;
+      padding: 0.4em 0.7em;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    #fileList li:hover {
+      background: #7aa2f7;
+      color: #1a1b26;
+    }
+    #windowContainer {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .floating-window {
+      position: absolute;
+      top: 20vh;
+      left: 30vw;
+      width: 700px;
+      height: 480px;
+      background: #24283b;
+      border-radius: 14px;
+      box-shadow: 0 0 32px #7aa2f7cc, 0 0 12px #7dcfff99;
+      border: 2.5px solid #7aa2f7;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      pointer-events: auto;
+      resize: both;
+      min-width: 320px;
+      min-height: 200px;
+    }
+    .window-header {
+      background: #1a1b26;
+      color: #7aa2f7;
+      padding: 0.5em 1em;
+      font-weight: bold;
+      cursor: move;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      border-bottom: 1.5px solid #7aa2f7;
+    }
+    .close-btn {
+      background: #7aa2f7;
+      color: #1a1b26;
+      border: none;
+      border-radius: 50%;
+      width: 1.6em;
+      height: 1.6em;
+      font-size: 1.1em;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.18s, color 0.18s;
+    }
+    .close-btn:hover {
+      background: #f7768e;
+      color: #fff;
+    }
+    .floating-window iframe {
+      flex: 1 1 auto;
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: #1a1b26;
+    }
+  </style>
+</head>
+<body>
+  <div id="overlay"></div>
+  <ul id="fileList"></ul>
+  <div id="windowContainer"></div>
+  <script src="kn.js"></script>
+</body>
+</html>
