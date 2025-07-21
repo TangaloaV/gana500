@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bidirectional Script Swapper</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{font-family:sans-serif;margin:0;padding:1rem;background:#f7f7f7}
+h1{font-size:1.4rem;margin:.2em 0 .6em;text-align:center}
+label{font-weight:bold;display:block;margin:.5em 0 .2em}
+textarea{width:100%;box-sizing:border-box;font:1rem/1.35 monospace;min-height:8rem;padding:.5rem}
+#textB{background:#eee}
+button{padding:.4rem .9rem;font-size:1rem;cursor:pointer;margin:.3rem .3rem 0 0}
+.small{font-size:.82rem;color:#555}
+.grid{display:grid;gap:1rem}
+@media(min-width:700px){.grid2{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<h1>Bidirectional Script Swapper</h1>
+
+<!-- === MAPPING BOXES === -->
+<div class="grid grid2">
+  <div>
+    <label for="from">FROM list (one per line)</label>
+    <textarea id="from" placeholder="a\nb\nc\nch\nng"></textarea>
+  </div>
+  <div>
+    <label for="to">TO list (same number of lines)</label>
+    <textarea id="to" placeholder="α\nβ\nγ\nч\nŋ"></textarea>
+  </div>
+</div>
+
+<button id="build">Build mapping</button>
+<button id="clearMap">Clear list</button>
+<button id="exportMap">Export preset</button>
+<button id="importMap">Import preset</button>
+<input type="file" id="importFile" accept="application/json" style="display:none">
+<label class="small"><input type="checkbox" id="ignoreCase"> Ignore case</label>
+
+<!-- === TEXT BOXES === -->
+<div class="grid grid2" style="margin-top:1.4rem">
+  <div>
+    <label for="textA">Text A ⟶ (auto‑converts ➜ Text B)</label>
+    <textarea id="textA" placeholder="Type or paste…"></textarea>
+  </div>
+  <div>
+    <label for="textB">Text B ⟵ (auto‑converts ➜ Text A)</label>
+    <textarea id="textB" placeholder="Type or paste…"></textarea>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+
+  // Elements
+  const fromEl=$('from'), toEl=$('to'), buildBtn=$('build'), clearBtn=$('clearMap');
+  const exportBtn=$('exportMap'), importBtn=$('importMap'), fileEl=$('importFile');
+  const textA=$('textA'), textB=$('textB'), ignoreCaseEl=$('ignoreCase');
+
+  // Current mappings
+  let forward=[], reverse=[];          // arrays of [key,val] sorted longest‑first
+  let disableSync=false;               // guard to avoid event ping‑pong
+
+  // Build mapping tables from lists
+  function buildMapping() {
+    const f = fromEl.value.split(/\r?\n/).map(s=>s.trim());
+    const t = toEl.value.split(/\r?\n/).map(s=>s.trim());
+    const mapF={}, mapR={};
+    const max = Math.max(f.length,t.length);
+
+    for(let i=0;i<max;i++){
+      const k=f[i]||'', v=t[i]||'';
+      if(!k) continue;
+      addPair(mapF, mapR, k, v);
+    }
+    // Convert objects into longest‑first arrays for speedy matching
+    forward = objToSortedPairs(mapF);
+    reverse = objToSortedPairs(mapR);
+    // Trigger re‑convert to update both boxes
+    convertA(); convertB();
+  }
+
+  // Add pair plus optional case variants
+  function addPair(mapF, mapR, k, v){
+    mapF[k]=v;
+    mapR[v]=k;
+    if(ignoreCaseEl.checked){
+      const ku=k.toUpperCase(), kl=k.toLowerCase();
+      const vu=v.toUpperCase?.()??v, vl=v.toLowerCase?.()??v;
+      if(!mapF[ku]){mapF[ku]=vu; mapR[vu]=ku;}
+      if(!mapF[kl]){mapF[kl]=vl; mapR[vl]=kl;}
+    }
+  }
+
+  // Return array sorted by longest key first
+  function objToSortedPairs(obj){
+    return Object.keys(obj)
+      .sort((a,b)=>b.length-a.length)
+      .map(k=>[k,obj[k]]);
+  }
+
+  // Convert helper (one direction)
+  function convert(str, pairs){
+    if(!pairs.length||!str) return str;
+    let out='', i=0;
+    while(i<str.length){
+      let matched=false;
+      for(const [k,v] of pairs){
+        if(str.startsWith(k,i)){
+          out+=v; i+=k.length; matched=true; break;
+        }
+      }
+      if(!matched){out+=str[i]; i++;}
+    }
+    return out;
+  }
+
+  // Live converters
+  function convertA(){
+    if(disableSync) return;
+    disableSync=true;
+    textB.value = convert(textA.value, forward);
+    disableSync=false;
+  }
+  function convertB(){
+    if(disableSync) return;
+    disableSync=true;
+    textA.value = convert(textB.value, reverse);
+    disableSync=false;
+  }
+
+  // === Event wiring ===
+  buildBtn.addEventListener('click', buildMapping);
+  clearBtn.addEventListener('click', ()=>{fromEl.value='';toEl.value='';buildMapping();});
+  ignoreCaseEl.addEventListener('change', buildMapping);
+
+  textA.addEventListener('input', convertA);
+  textB.addEventListener('input', convertB);
+
+  // --- Export mapping ---
+  exportBtn.addEventListener('click', ()=>{
+    const preset = {
+      from: fromEl.value,
+      to:   toEl.value,
+      ignoreCase: ignoreCaseEl.checked,
+      ts: new Date().toISOString()
+    };
+    const blob = new Blob([JSON.stringify(preset,null,2)],{type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url; a.download='swap‑preset.json'; a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  // --- Import mapping ---
+  importBtn.addEventListener('click', ()=>fileEl.click());
+  fileEl.addEventListener('change', e=>{
+    const file=e.target.files[0]; if(!file) return;
+    const r=new FileReader();
+    r.onload=evt=>{
+      try{
+        const p=JSON.parse(evt.target.result);
+        if('from'in p)fromEl.value=p.from;
+        if('to'in p)toEl.value=p.to;
+        ignoreCaseEl.checked=!!p.ignoreCase;
+        buildMapping();
+      }catch(err){alert('Invalid preset file');}
+    };
+    r.readAsText(file);
+  });
+
+  // Build default empty mapping on first load
+  buildMapping();
+})();
+</script>
+</body>
+</html>
