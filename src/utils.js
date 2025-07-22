@@ -3240,7 +3240,7 @@ let Voiceness = {
   "1": 0.2,
   "2": 0.0001,
 };
-let consonantHoldTime = 0.1;
+let consonantHoldTime = 0.05;
 let timeBetweenSubResults = 0.1; // seconds
 let spaceTime = 0.1;
 let releaseTime = 0.1;
