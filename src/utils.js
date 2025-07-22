@@ -2883,11 +2883,11 @@ const phonemes = {
   example: "7",
   holdTime: 0.01,
 //  intensity: 0.01,
-  frequency: 160,
+  frequency: 180,
   constrictions: {
     back: {
       index: 10.0,
-      diameter: 2.35,
+      diameter: 2.8,
     },
   },
 },
@@ -2901,7 +2901,7 @@ const phonemes = {
   constrictions: {
    back: {
       index: 5.0,
-      diameter: 2.35,
+      diameter: 2.8,
     },
   },
 },
@@ -2911,11 +2911,11 @@ const phonemes = {
   example: "7",
   holdTime: 0.01,
 //  intensity: 0.01,
-  frequency: 120,
+  frequency: 100,
   constrictions: {
     back: {
       index: 1.0,
-      diameter: 2.35,
+      diameter: 2.8,
     },
   },
 },
