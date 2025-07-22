@@ -3018,6 +3018,61 @@ const phonemes = {
       },
     },
   },
+  "ꪽ": {
+voiced: true,
+graphemes: ["10"],
+example: "10",
+constrictions: {
+  back: {
+    index: 31.5,
+    diameter: 0.8,
+  },
+},
+},
+"ꪺ": {
+voiced: true,
+graphemes: ["10"],
+example: "10",
+constrictions: {
+  back: {
+    index: 21.5,
+    diameter: 0.8,
+  },
+},
+},
+"ꪾ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 41.5,
+      diameter: 0.8,
+    },
+  },
+},
+"ꪸ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 38.0,
+      diameter: 0.8,
+    },
+  },
+},
+"ꪼ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 26.5,
+      diameter: 0.8,
+    },
+  },
+},
   ꡂ: {
     graphemes: ["9"],
     example: "9",
