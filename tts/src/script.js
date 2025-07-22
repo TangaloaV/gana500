@@ -438,7 +438,7 @@ const createResultContainer = () => {
               ? timeBetweenPhonemes
               : timeBetweenSubPhonemes,
             "frontConstriction.diameter": 5,
-            "backConstriction.diameter": 5,
+           // "backConstriction.diameter": 5,
           };
 // reapapan backsetting
 // Add semitone pitch if specified

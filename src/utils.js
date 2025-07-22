@@ -2884,12 +2884,12 @@ const phonemes = {
   holdTime: 0.01,
 //  intensity: 0.01,
   frequency: 160,
-//  constrictions: {
- //   back: {
-  //    index: 10.0,
-  //    diameter: 2.35,
- //   },
-//  },
+  constrictions: {
+    back: {
+      index: 10.0,
+      diameter: 2.35,
+    },
+  },
 },
 "ꫀ": {
   voiced: true,
@@ -2898,12 +2898,12 @@ const phonemes = {
   holdTime: 0.01,
  // intensity: 0.01,
   frequency: 140,
-//  constrictions: {
-//    back: {
- //     index: 5.0,
- //     diameter: 2.35,
-//    },
-//  },
+  constrictions: {
+   back: {
+      index: 5.0,
+      diameter: 2.35,
+    },
+  },
 },
 "ꫂ": {
   voiced: true,
@@ -2912,12 +2912,12 @@ const phonemes = {
   holdTime: 0.01,
 //  intensity: 0.01,
   frequency: 120,
-//  constrictions: {
- //   back: {
- //     index: 1.0,
-  //    diameter: 2.35,
- //   },
-//  },
+  constrictions: {
+    back: {
+      index: 1.0,
+      diameter: 2.35,
+    },
+  },
 },
    "ꪰ": {
     voiced: true,
@@ -3073,23 +3073,16 @@ constrictions: {
     },
   },
 },
-  ꡂ: {
-    graphemes: ["9"],
-    example: "9",
-    constrictions: [
-      {
-        tongue: {
-          index: 20.0,
-          diameter: 2.7,
-        },
-      },
-      {
-        back: {
-          index: 7.0,
-          diameter: 0.5,
-        },
-      },
-    ],
+  "꫁": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 31.5,
+      diameter: 5.0,
+    },
+  },
   },
   
 };
