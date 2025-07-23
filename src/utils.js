@@ -1619,6 +1619,577 @@ const phonemes = {
     },
   },
 },
+  //taidam phones
+  "ꪔ": {
+  voiced: true,
+  graphemes: ["9"],
+  example: "9",
+  constrictions: {
+      front: {
+        index: 31.5,
+        diameter: 0.1,
+     },
+  },
+},
+  "ꪘ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪎ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪦ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪀ": {
+  voiced: true,
+  graphemes: ["9"],
+  example: "9",
+  constrictions: 
+    {
+      front: {
+        index: 21.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪈ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪂ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪄ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪜ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 41.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪢ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪠ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪪ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: 0.8,
+    },
+  },
+},
+"ꪞ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 38.0,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪒ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪖ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪨ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪊ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 26.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪐ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪌ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪤ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: 0.8,
+    },
+  },
+},
+  //voiceless
+  "ꪕ": {
+  voiced: false,
+  graphemes: ["9"],
+  example: "9",
+  constrictions: {
+      front: {
+        index: 31.5,
+        diameter: 0.1,
+     },
+  },
+ },
+  "ꪙ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪏ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪧ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 31.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪁ": {
+  voiced: false,
+  graphemes: ["9"],
+  example: "9",
+  constrictions: 
+    {
+      front: {
+        index: 21.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪉ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪃ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪅ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 21.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪝ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 41.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪣ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪡ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪫ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 41.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪟ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 38.0,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪓ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪗ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪩ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 38.0,
+      diameter: 0.8,
+    },
+  },
+},
+  "ꪋ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: 
+    {
+      front: {
+        index: 26.5,
+        diameter: 0.1,
+      },
+    },
+},
+  "ꪑ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: -0.8,
+    },
+  },
+},
+  "ꪍ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: 0.4,
+    },
+  },
+},
+  "ꪥ": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    front: {
+      index: 26.5,
+      diameter: 0.8,
+    },
+  },
+},
+  //tones
+"꪿": {
+  voiced: true,
+  graphemes: ["7"],
+  example: "7",
+  holdTime: 0.01,
+//  intensity: 0.01,
+  frequency: 180,
+  constrictions: {
+    back: {
+      index: 10.0,
+      diameter: 2.8,
+    },
+  },
+},
+"ꫀ": {
+  voiced: true,
+  graphemes: ["7"],
+  example: "7",
+  holdTime: 0.01,
+ // intensity: 0.01,
+  frequency: 140,
+  constrictions: {
+   back: {
+      index: 5.0,
+      diameter: 2.8,
+    },
+  },
+},
+"ꫂ": {
+  voiced: true,
+  graphemes: ["7"],
+  example: "7",
+  holdTime: 0.01,
+//  intensity: 0.01,
+  frequency: 100,
+  constrictions: {
+    back: {
+      index: 1.0,
+      diameter: 2.8,
+    },
+  },
+},
+  //coartcs
+  "ꪽ": {
+voiced: true,
+graphemes: ["10"],
+example: "10",
+constrictions: {
+  back: {
+    index: 31.5,
+    diameter: 0.8,
+  },
+},
+},
+"ꪺ": {
+voiced: true,
+graphemes: ["10"],
+example: "10",
+constrictions: {
+  back: {
+    index: 21.5,
+    diameter: 0.8,
+  },
+},
+},
+"ꪾ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 41.5,
+      diameter: 0.8,
+    },
+  },
+},
+"ꪸ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 38.0,
+      diameter: 0.8,
+    },
+  },
+},
+"ꪼ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 26.5,
+      diameter: 0.8,
+    },
+  },
+},
+  "꫁": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 31.5,
+      diameter: 5.0,
+    },
+   },
+  },
+    "ꪱ": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: {
+    back: {
+      index: 48.0,
+      diameter: -1.5,
+    },
+   },
+  },
 
   // VOWELS
   æ: {
@@ -2425,500 +2996,7 @@ const phonemes = {
       },
     },
   },  
-
-  //taidam phones
-  "ꪔ": {
-  voiced: true,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: {
-      front: {
-        index: 31.5,
-        diameter: 0.1,
-     },
-  },
-},
-  "ꪘ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪎ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪦ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪀ": {
-  voiced: true,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: 
-    {
-      front: {
-        index: 21.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪈ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪂ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪄ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪜ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 41.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪢ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪠ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪪ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.8,
-    },
-  },
-},
-"ꪞ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 38.0,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪒ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪖ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪨ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪊ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 26.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪐ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪌ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪤ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.8,
-    },
-  },
-},
-  //voiceless
-  "ꪕ": {
-  voiced: false,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: {
-      front: {
-        index: 31.5,
-        diameter: 0.1,
-     },
-  },
- },
-  "ꪙ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪏ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪧ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪁ": {
-  voiced: false,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: 
-    {
-      front: {
-        index: 21.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪉ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪃ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪅ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪝ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 41.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪣ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪡ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪫ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪟ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 38.0,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪓ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪗ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪩ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.8,
-    },
-  },
-},
-  "ꪋ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 26.5,
-        diameter: 0.1,
-      },
-    },
-},
-  "ꪑ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: -0.8,
-    },
-  },
-},
-  "ꪍ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.4,
-    },
-  },
-},
-  "ꪥ": {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.8,
-    },
-  },
-},
-  //tones
-"꪿": {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
-//  intensity: 0.01,
-  frequency: 180,
-  constrictions: {
-    back: {
-      index: 10.0,
-      diameter: 2.8,
-    },
-  },
-},
-"ꫀ": {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
- // intensity: 0.01,
-  frequency: 140,
-  constrictions: {
-   back: {
-      index: 5.0,
-      diameter: 2.8,
-    },
-  },
-},
-"ꫂ": {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
-//  intensity: 0.01,
-  frequency: 100,
-  constrictions: {
-    back: {
-      index: 1.0,
-      diameter: 2.8,
-    },
-  },
-},
+//taiveitvowl
    "ꪰ": {
     voiced: true,
     graphemes: ["7"],
@@ -3018,73 +3096,6 @@ const phonemes = {
       },
     },
   },
-  "ꪽ": {
-voiced: true,
-graphemes: ["10"],
-example: "10",
-constrictions: {
-  back: {
-    index: 31.5,
-    diameter: 0.8,
-  },
-},
-},
-"ꪺ": {
-voiced: true,
-graphemes: ["10"],
-example: "10",
-constrictions: {
-  back: {
-    index: 21.5,
-    diameter: 0.8,
-  },
-},
-},
-"ꪾ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    back: {
-      index: 41.5,
-      diameter: 0.8,
-    },
-  },
-},
-"ꪸ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    back: {
-      index: 38.0,
-      diameter: 0.8,
-    },
-  },
-},
-"ꪼ": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    back: {
-      index: 26.5,
-      diameter: 0.8,
-    },
-  },
-},
-  "꫁": {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    back: {
-      index: 31.5,
-      diameter: 5.0,
-    },
-  },
-  },
-  
 };
 
 for (const phoneme in phonemes) {
