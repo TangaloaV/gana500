@@ -286,6 +286,10 @@ const getResultContainer = (alternatives) => {
   wordSpan.innerText =
     validTextStrings[resultContainer.resultContainerIndex] || "";
 
+  // Set default frequency for word
+  const freqInput = resultContainer.querySelector('.word-frequency');
+  freqInput.value = initialFrequency;
+
   return resultContainer;
 };
 
@@ -631,7 +635,44 @@ if ("frequency" in phonemeInfo && !isSubPhoneme) {
     });
     return _keyframes;
   };
-  resultContainer.renderKeyframes = renderKeyframes;
+  // Patch: override renderKeyframes to use per-word frequency
+  resultContainer.renderKeyframes = (
+    time = 0,
+    frequency = initialFrequency,
+    tractLength = initialTractLength
+  ) => {
+    // Use the frequency from the input field for this word
+    const freqInput = resultContainer.querySelector('.word-frequency');
+    let wordFrequency = Number(freqInput?.value) || initialFrequency;
+    const _keyframes = [];
+    keyframes.forEach((keyframe) => {
+      const _keyframe = Object.assign({}, keyframe);
+      if (_keyframe.timeDelta > 0) {
+        time += _keyframe.timeDelta / speed;
+        _keyframe.time = time;
+        // Use wordFrequency for this word's keyframes
+        if (!('frequency' in _keyframe)) {
+          if ('semitones' in keyframe) {
+            const { semitones } = keyframe;
+            wordFrequency *= 2 ** (semitones / 12);
+          }
+          _keyframe.frequency = wordFrequency;
+        } else {
+          wordFrequency = _keyframe.frequency;
+        }
+        if ('tractLength' in keyframe) {
+          const { tractLength: _tractLength } = keyframe;
+          if (tractLength != 0) {
+            tractLength = _tractLength;
+          }
+        }
+        _keyframe.tractLength = tractLength;
+        delete _keyframe.timeDelta;
+        _keyframes.push(_keyframe);
+      }
+    });
+    return _keyframes;
+  };
 
   resultsContainer.appendChild(resultContainer);
   return resultContainer;
