@@ -2334,7 +2334,7 @@ constrictions: {
       },
     },
     },
-    ': {
+    "'": {
     voiced: true,
     graphemes: ["10"],
     example: "10",
@@ -2378,7 +2378,7 @@ constrictions: {
         },
       },
     },
-      -: {
+      "-": {
       voiced: true,
       graphemes: ["10"],
       example: "10",
@@ -2389,7 +2389,7 @@ constrictions: {
         },
        },
       },
-        =: {
+        "=": {
       voiced: true,
       graphemes: ["10"],
       example: "10",
