@@ -2322,6 +2322,84 @@ constrictions: {
     },
    },
   },
+    //coartcs
+  7: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      back: {
+        index: 31.5,
+        diameter: 0.8,
+      },
+    },
+    },
+    ': {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      back: {
+        index: 21.5,
+        diameter: 0.8,
+      },
+    },
+    },
+    v: {
+      voiced: true,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 41.5,
+          diameter: 0.8,
+        },
+      },
+    },
+    2: {
+      voiced: true,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 38.0,
+          diameter: 0.8,
+        },
+      },
+    },
+    8: {
+      voiced: true,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 26.5,
+          diameter: 0.8,
+        },
+      },
+    },
+      -: {
+      voiced: true,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 31.5,
+          diameter: 5.0,
+        },
+       },
+      },
+        =: {
+      voiced: true,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 48.0,
+          diameter: -1.5,
+        },
+       },
+      },
 
   // VOWELS
    a: {
