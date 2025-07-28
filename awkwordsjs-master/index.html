@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nqaos Kupu - Word Generator</title>
+  <link rel="stylesheet" href="./awkwordsjs-master/shell.css">
+  <link rel="shortcut icon" href="./awkwordsjs-master/awkwords-favicon.ico" type="image/x-icon">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 2em;
+      background: #181026;
+      color: #e0d6ff;
+    }
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: linear-gradient(90deg, #2d0a4b 0%, #181026 100%);
+      padding: 1em 2em;
+      border-radius: 1em;
+      margin-bottom: 2em;
+      box-shadow: 0 2px 12px #0008;
+    }
+    .h_left {
+      font-size: 2.2em;
+      font-weight: bold;
+      color: #c77dff;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 8px #000a;
+    }
+    .h_right {
+      font-size: 1em;
+      color: #a084ca;
+    }
+    .h_right a {
+      color: #a084ca;
+      text-decoration: underline;
+    }
+    .sptab {
+      border-collapse: collapse;
+      margin-bottom: 1em;
+      width: 100%;
+      background: #22143a;
+      border-radius: 0.5em;
+      overflow: hidden;
+      box-shadow: 0 1px 6px #0006;
+    }
+    .sptab th, .sptab td {
+      border: 1px solid #3a2060;
+      padding: 0.3em 0.5em;
+      color: #e0d6ff;
+      background: #2d1847;
+    }
+    .sptab th {
+      background: #3a2060;
+      color: #c77dff;
+    }
+    input, select, button {
+      background: #22143a;
+      color: #e0d6ff;
+      border: 1px solid #3a2060;
+      border-radius: 0.3em;
+      padding: 0.2em 0.5em;
+      margin: 0.2em 0.1em;
+      font-size: 1em;
+    }
+    input[type="checkbox"] {
+      accent-color: #c77dff;
+      width: 1.1em;
+      height: 1.1em;
+    }
+    button, input[type="submit"] {
+      background: linear-gradient(90deg, #c77dff 0%, #7b2ff2 100%);
+      color: #181026;
+      font-weight: bold;
+      border: none;
+      box-shadow: 0 1px 4px #0004;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover, input[type="submit"]:hover {
+      background: linear-gradient(90deg, #a084ca 0%, #c77dff 100%);
+      color: #181026;
+    }
+    #outputsec {
+      margin-top: 2em;
+      background: #22143a;
+      border-radius: 0.7em;
+      padding: 1.2em 1.5em;
+      box-shadow: 0 1px 8px #0007;
+    }
+    .error {
+      color: #ff6bcb;
+      background: #2d0a4b;
+      border-left: 4px solid #ff6bcb;
+      padding: 0.5em 1em;
+      margin: 0.5em 0;
+      border-radius: 0.3em;
+    }
+    .warning {
+      color: #ffe066;
+      background: #3a2060;
+      border-left: 4px solid #ffe066;
+      padding: 0.5em 1em;
+      margin: 0.5em 0;
+      border-radius: 0.3em;
+    }
+    #words {
+      font-family: 'Fira Mono', 'Consolas', monospace;
+      white-space: pre-wrap;
+      color: #e0d6ff;
+      background: #181026;
+      border-radius: 0.3em;
+      padding: 0.7em 1em;
+      margin: 1em 0 0.5em 0;
+      min-height: 2em;
+      box-shadow: 0 1px 4px #0004;
+    }
+    #stats {
+      color: #a084ca;
+      margin-bottom: 0.5em;
+    }
+    #select-all-btn {
+      margin-bottom: 0.7em;
+      background: #7b2ff2;
+      color: #fff;
+    }
+    #select-all-btn:hover {
+      background: #c77dff;
+      color: #181026;
+    }
+    .refnote {
+      font-size: 0.95em;
+      color: #a084ca;
+      margin-top: 1.5em;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+<div class="heading">
+  <span class="h_left">Nqaos Kupu</span>
+  <span class="h_right"><a href="./awkwordsjs-master/help.html" target="_blank">Help</a></span>
+</div>
+<form id="awkwords-form">
+  <table class="sptab">
+    <tr><th colspan="2">Subpatterns</th></tr>
+    <tbody id="subpatterns-tbody"></tbody>
+  </table>
+  <div>
+    <label for="pattern"><b>Pattern:</b></label>
+    <input type="text" id="pattern" name="pattern" size="64" value="CV(CV)(N)">
+  </div>
+  <div>
+    <label for="numw">Words:</label>
+    <input type="number" id="numw" name="numw" min="1" max="9999" value="100">
+    <label><input type="checkbox" id="nle" name="nle"> New line each</label>
+    <label><input type="checkbox" id="filterdup" name="filterdup"> Filter duplicates</label>
+    <button type="submit">Generate</button>
+    <button type="button" id="save-btn">Save Settings</button>
+    <input type="file" id="load-input" accept=".awkw,.txt" style="display:none">
+    <button type="button" id="load-btn">Load Settings</button>
+  </div>
+</form>
+<div id="outputsec">
+  <button id="select-all-btn" style="display:none;">Select all</button>
+  <div id="words"></div>
+  <div id="stats"></div>
+  <div id="messages"></div>
+</div>
+<div class="refnote">
+  <span>Nqaos Kupu &mdash; <span style="color:#c77dff">Awkwords in JS</span></span>
+</div>
+<script src="./awkwordsjs-master/awkwords.js"></script>
+</body>
+</html>
