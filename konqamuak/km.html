@@ -121,6 +121,7 @@
       resize: both;
       min-width: 320px;
       min-height: 200px;
+      z-index: 10;
     }
     .window-header {
       background: #1a1b26;
@@ -133,6 +134,7 @@
       justify-content: space-between;
       user-select: none;
       border-bottom: 1.5px solid #7aa2f7;
+      gap: 0.5em;
     }
     .close-btn {
       background: #7aa2f7;
@@ -145,6 +147,7 @@
       cursor: pointer;
       font-weight: bold;
       transition: background 0.18s, color 0.18s;
+      margin-left: 0.5em;
     }
     .close-btn:hover {
       background: #f7768e;
@@ -156,6 +159,22 @@
       height: 100%;
       border: none;
       background: #1a1b26;
+      outline: none;
+    }
+    .open-tab-btn, .focus-btn {
+      margin-left: 0.5em;
+      background: #24283b;
+      color: #7aa2f7;
+      border: 1.5px solid #7aa2f7;
+      border-radius: 6px;
+      padding: 0.2em 0.7em;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.18s, color 0.18s;
+    }
+    .open-tab-btn:hover, .focus-btn:hover {
+      background: #7aa2f7;
+      color: #1a1b26;
     }
   </style>
 </head>
@@ -184,6 +203,101 @@
     }
     setInterval(updateClock, 1000);
     updateClock();
+
+    // --- Floating window z-index and open-in-tab logic ---
+    let topZ = 20;
+    function bringToFront(win) {
+      topZ++;
+      win.style.zIndex = topZ;
+    }
+
+    // Patch kn.js window creation to add open-in-tab and focus buttons, and z-index/focus logic
+    const origCreateWindow = window.createWindow;
+    window.createWindow = function(title, url) {
+      const win = origCreateWindow(title, url);
+      const header = win.querySelector('.window-header');
+      // Add open-in-tab button if not already present
+      if (header && !header.querySelector('.open-tab-btn')) {
+        const openBtn = document.createElement('button');
+        openBtn.textContent = '↗';
+        openBtn.title = 'Open in new tab';
+        openBtn.className = 'open-tab-btn';
+        openBtn.onclick = e => { e.stopPropagation(); window.open(url, '_blank'); };
+        header.insertBefore(openBtn, header.querySelector('.close-btn'));
+      }
+      // Add F button for focus (open non-iframe)
+      if (header && !header.querySelector('.focus-btn')) {
+        const focusBtn = document.createElement('button');
+        focusBtn.textContent = 'F';
+        focusBtn.title = 'Open this page separately (non-iframe)';
+        focusBtn.className = 'focus-btn';
+        focusBtn.onclick = e => { e.stopPropagation(); window.open(url, '_blank'); };
+        header.insertBefore(focusBtn, header.querySelector('.close-btn'));
+      }
+      // Bring to front on click
+      win.addEventListener('mousedown', () => bringToFront(win));
+      // Also bring to front and focus on iframe click
+      const iframe = win.querySelector('iframe');
+      if (iframe) {
+        iframe.setAttribute('tabindex', '0');
+        iframe.addEventListener('mousedown', e => {
+          bringToFront(win);
+        });
+        iframe.addEventListener('focus', e => {
+          bringToFront(win);
+        });
+        // Optional: visually indicate focus
+        iframe.addEventListener('focus', e => { iframe.style.outline = '2px solid #7aa2f7'; });
+        iframe.addEventListener('blur', e => { iframe.style.outline = 'none'; });
+      }
+      // Set initial z-index
+      bringToFront(win);
+      return win;
+    };
+
+    // If kn.js hasn't loaded yet, patch after load
+    if (!window.createWindow) {
+      window.addEventListener('DOMContentLoaded', () => {
+        if (window.createWindow) {
+          const origCreateWindow = window.createWindow;
+          window.createWindow = function(title, url) {
+            const win = origCreateWindow(title, url);
+            const header = win.querySelector('.window-header');
+            if (header && !header.querySelector('.open-tab-btn')) {
+              const openBtn = document.createElement('button');
+              openBtn.textContent = '↗';
+              openBtn.title = 'Open in new tab';
+              openBtn.className = 'open-tab-btn';
+              openBtn.onclick = e => { e.stopPropagation(); window.open(url, '_blank'); };
+              header.insertBefore(openBtn, header.querySelector('.close-btn'));
+            }
+            if (header && !header.querySelector('.focus-btn')) {
+              const focusBtn = document.createElement('button');
+              focusBtn.textContent = 'F';
+              focusBtn.title = 'Open this page separately (non-iframe)';
+              focusBtn.className = 'focus-btn';
+              focusBtn.onclick = e => { e.stopPropagation(); window.open(url, '_blank'); };
+              header.insertBefore(focusBtn, header.querySelector('.close-btn'));
+            }
+            win.addEventListener('mousedown', () => bringToFront(win));
+            const iframe = win.querySelector('iframe');
+            if (iframe) {
+              iframe.setAttribute('tabindex', '0');
+              iframe.addEventListener('mousedown', e => {
+                bringToFront(win);
+              });
+              iframe.addEventListener('focus', e => {
+                bringToFront(win);
+              });
+              iframe.addEventListener('focus', e => { iframe.style.outline = '2px solid #7aa2f7'; });
+              iframe.addEventListener('blur', e => { iframe.style.outline = 'none'; });
+            }
+            bringToFront(win);
+            return win;
+          };
+        }
+      });
+    }
   </script>
 </body>
 </html>

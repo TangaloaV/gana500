@@ -50,11 +50,33 @@ function createWindow(file) {
   win.innerHTML = `
     <div class="window-header">
       <span>${page ? page.emoji + ' ' + page.title : file.split('/').pop()}</span>
-      <button class="close-btn">×</button>
+      <span style="flex:1 1 auto;"></span>
+      <button class="focus-btn" title="Open this page separately (non-iframe)" style="width:2em;height:2em;padding:0;margin-left:0.5em;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:1em;">F</button>
+      <button class="close-btn" title="Close window" style="width:2em;height:2em;padding:0;margin-left:0.5em;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:1em;">Q</button>
     </div>
-    <iframe src="${file}" frameborder="0"></iframe>
+    <iframe src="${file}" frameborder="0" tabindex="0"></iframe>
   `;
   win.querySelector('.close-btn').onclick = () => win.remove();
+  win.querySelector('.focus-btn').onclick = e => { e.stopPropagation(); window.open(file, '_blank'); };
+  // Bring to front on window click
+  win.addEventListener('mousedown', () => {
+    if (typeof window.bringToFront === 'function') window.bringToFront(win);
+    else win.style.zIndex = 99;
+  });
+  // Bring to front and focus on iframe click/focus
+  const iframe = win.querySelector('iframe');
+  if (iframe) {
+    iframe.addEventListener('mousedown', e => {
+      if (typeof window.bringToFront === 'function') window.bringToFront(win);
+      else win.style.zIndex = 99;
+    });
+    iframe.addEventListener('focus', e => {
+      if (typeof window.bringToFront === 'function') window.bringToFront(win);
+      else win.style.zIndex = 99;
+      iframe.style.outline = '2px solid #7aa2f7';
+    });
+    iframe.addEventListener('blur', e => { iframe.style.outline = 'none'; });
+  }
   makeDraggable(win);
   container.appendChild(win);
 }
