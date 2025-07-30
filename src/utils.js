@@ -2395,7 +2395,86 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 48.0,
+          index: 256.0,
+          diameter: -1.5,
+        },
+       },
+      },
+  //aspiratecoartcs
+      //coartcs
+  "&": {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      back: {
+        index: 31.5,
+        diameter: 0.8,
+      },
+    },
+    },
+    "@": {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      back: {
+        index: 21.5,
+        diameter: 0.8,
+      },
+    },
+    },
+    V: {
+      voiced: false,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 41.5,
+          diameter: 0.8,
+        },
+      },
+    }, //risky definition -------------------------------------------------------------------------
+    """: {
+      voiced: false,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 38.0,
+          diameter: 0.8,
+        },
+      },
+    },
+    "*": {
+      voiced: false,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 26.5,
+          diameter: 0.8,
+        },
+      },
+    },
+      "_": {
+      voiced: false,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 31.5,
+          diameter: 5.0,
+        },
+       },
+      },
+        "+": {
+      voiced: false,
+      graphemes: ["10"],
+      example: "10",
+      constrictions: {
+        back: {
+          index: 256.0,
           diameter: -1.5,
         },
        },
@@ -2554,6 +2633,106 @@ constrictions: {
   },
   1: {
     voiced: true,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 24.8,
+        diameter: 2.0,
+      },
+    },
+  },
+  //hissrotokupu
+     A: {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 14,
+        diameter: 2.78,
+      },
+    },
+  },
+  "£": {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 27.0,
+        diameter: 2.76,
+      },
+    },
+  },
+  I: {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 29.0,
+        diameter: 2.0,
+      },
+    },
+  },
+  ")": {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 16.3,
+        diameter: 2.0,
+      },
+    },
+  },
+  U: {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 20.6,
+        diameter: 2.0,
+      },
+    },
+  },
+  E: {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 19.5,
+        diameter: 3.5,
+      },
+    },
+  },
+  O: {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 12.0,
+        diameter: 2.0,
+      },
+    },
+  },
+  "(": {
+    voiced: false,
+    graphemes: ["7"],
+    example: "7",
+    constrictions: {
+      tongue: {
+        index: 20.5,
+        diameter: 2.78,
+      },
+    },
+  },
+  "!": {
+    voiced: false,
     graphemes: ["7"],
     example: "7",
     constrictions: {
