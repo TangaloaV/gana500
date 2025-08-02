@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,21 +34,47 @@
 <body>
   <h1>🧬 Character Frequency Analyzer</h1>
   <textarea id="inputText" rows="6" placeholder="Paste your paragraph here..."></textarea>
+  <div style="margin-bottom:10px;">
+    <label><input type="checkbox" id="modeToggle" onchange="updateMode()"> Word Frequency Mode</label>
+  </div>
+  <div id="spacerBox" style="display:none; margin-bottom:10px;">
+    <label>Spacer characters (default: space): <input type="text" id="spacerInput" placeholder="e.g. ,;|" style="width:200px;" /></label>
+  </div>
   <button onclick="analyzeText()">Analyze</button>
   <div class="output" id="output"></div>
 
   <script>
+    function updateMode() {
+      const isWordMode = document.getElementById('modeToggle').checked;
+      document.getElementById('spacerBox').style.display = isWordMode ? 'block' : 'none';
+    }
+
     function analyzeText() {
       const text = document.getElementById('inputText').value;
-      const freq = {};
-      for (let char of text) {
-        freq[char] = (freq[char] || 0) + 1;
+      const isWordMode = document.getElementById('modeToggle').checked;
+      let freq = {};
+      if (isWordMode) {
+        let spacers = document.getElementById('spacerInput').value;
+        if (!spacers) spacers = ' ';
+        // Build regex for splitting
+        const splitRegex = new RegExp('[' + spacers.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ']+');
+        const words = text.split(splitRegex).filter(w => w.length > 0);
+        for (let word of words) {
+          freq[word] = (freq[word] || 0) + 1;
+        }
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+        const result = sorted.map(([word, count]) => `${word}: ${count}`).join('\n');
+        document.getElementById('output').textContent = result;
+      } else {
+        for (let char of text) {
+          freq[char] = (freq[char] || 0) + 1;
+        }
+        const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
+        const result = sorted.map(([char, count]) =>
+          `${char === ' ' ? '[space]' : char === '\n' ? '[newline]' : char}: ${count}`
+        ).join('\n');
+        document.getElementById('output').textContent = result;
       }
-      const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
-      const result = sorted.map(([char, count]) =>
-        `${char === ' ' ? '[space]' : char === '\n' ? '[newline]' : char}: ${count}`
-      ).join('\n');
-      document.getElementById('output').textContent = result;
     }
   </script>
 </body>

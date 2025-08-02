@@ -94,6 +94,9 @@ button:hover {
 <button id="importMap">Import preset</button>
 <input type="file" id="importFile" accept="application/json" style="display:none">
 <label class="small"><input type="checkbox" id="ignoreCase"> Ignore case</label>
+<label class="small"><input type="checkbox" id="wordMode"> Word mode (swap only whole words)</label>
+<label class="small"><input type="checkbox" id="commaSplit"> Comma split mode (split by custom characters)</label>
+<input type="text" id="splitChars" value="," style="width:6em;margin-left:.5em" placeholder="," title="Custom split characters">
 
 <!-- === TEXT BOXES === -->
 <div class="grid grid2" style="margin-top:1.4rem">
@@ -115,6 +118,7 @@ button:hover {
   const fromEl=$('from'), toEl=$('to'), buildBtn=$('build'), clearBtn=$('clearMap');
   const exportBtn=$('exportMap'), importBtn=$('importMap'), fileEl=$('importFile');
   const textA=$('textA'), textB=$('textB'), ignoreCaseEl=$('ignoreCase');
+  const wordModeEl=$('wordMode'), commaSplitEl=$('commaSplit'), splitCharsEl=$('splitChars');
 
   // Current mappings
   let forward=[], reverse=[];          // arrays of [key,val] sorted longest‑first
@@ -122,20 +126,36 @@ button:hover {
 
   // Build mapping tables from lists
   function buildMapping() {
-    const f = fromEl.value.split(/\r?\n/).map(s=>s.trim());
-    const t = toEl.value.split(/\r?\n/).map(s=>s.trim());
+    let fLines = fromEl.value.split(/\r?\n/).map(s=>s.trim());
+    let tLines = toEl.value.split(/\r?\n/).map(s=>s.trim());
+    // Comma split mode: split by custom chars
+    if (commaSplitEl.checked) {
+      const splitChars = splitCharsEl.value || ',';
+      const splitter = new RegExp(`[${splitChars.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&')}]`);
+      // For each line, split FROM by custom chars, but keep TO as is
+      let f = [], t = [];
+      for (let i = 0; i < fLines.length; i++) {
+        const fromParts = fLines[i].split(splitter).map(s => s.trim()).filter(Boolean);
+        const toVal = tLines[i] || '';
+        // If TO is a single value, map all FROM parts to it
+        for (const fp of fromParts) {
+          f.push(fp);
+          t.push(toVal);
+        }
+      }
+      fLines = f;
+      tLines = t;
+    }
+    // Defensive: ensure mapping lengths match
     const mapF={}, mapR={};
-    const max = Math.max(f.length,t.length);
-
+    const max = Math.max(fLines.length, tLines.length);
     for(let i=0;i<max;i++){
-      const k=f[i]||'', v=t[i]||'';
+      const k=fLines[i]||'', v=tLines[i]||'';
       if(!k) continue;
       addPair(mapF, mapR, k, v);
     }
-    // Convert objects into longest‑first arrays for speedy matching
     forward = objToSortedPairs(mapF);
     reverse = objToSortedPairs(mapR);
-    // Trigger re‑convert to update both boxes
     convertA(); convertB();
   }
 
@@ -161,17 +181,30 @@ button:hover {
   // Convert helper (one direction)
   function convert(str, pairs){
     if(!pairs.length||!str) return str;
-    let out='', i=0;
-    while(i<str.length){
-      let matched=false;
+    if(wordModeEl.checked) {
+      // Word mode: use regex to swap only whole words
+      let result = str;
       for(const [k,v] of pairs){
-        if(str.startsWith(k,i)){
-          out+=v; i+=k.length; matched=true; break;
-        }
+        // Escape regex special chars in k
+        const escaped = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`\\b${escaped}\\b`, ignoreCaseEl.checked ? 'gi' : 'g');
+        result = result.replace(re, v);
       }
-      if(!matched){out+=str[i]; i++;}
+      return result;
+    } else {
+      // Normal mode: greedy left-to-right
+      let out='', i=0;
+      while(i<str.length){
+        let matched=false;
+        for(const [k,v] of pairs){
+          if(str.startsWith(k,i)){
+            out+=v; i+=k.length; matched=true; break;
+          }
+        }
+        if(!matched){out+=str[i]; i++;}
+      }
+      return out;
     }
-    return out;
   }
 
   // Live converters
@@ -192,6 +225,9 @@ button:hover {
   buildBtn.addEventListener('click', buildMapping);
   clearBtn.addEventListener('click', ()=>{fromEl.value='';toEl.value='';buildMapping();});
   ignoreCaseEl.addEventListener('change', buildMapping);
+  wordModeEl.addEventListener('change', buildMapping);
+  commaSplitEl.addEventListener('change', buildMapping);
+  splitCharsEl.addEventListener('input', buildMapping);
 
   textA.addEventListener('input', convertA);
   textB.addEventListener('input', convertB);
