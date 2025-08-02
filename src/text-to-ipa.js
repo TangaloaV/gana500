@@ -3,19 +3,16 @@
 //  This file creates a global TextToIPA object containing the public loadDict
 //  and lookup methods as well as the associated private helper objects and methods.
 
-//  The purpose of this program is to look up an english word in an english-to-ipa
-//  dictionary via lookup() and return an IPAWord to tell if an english word
+//  The purpose of this program is to look up an word in an to-ipa
+//  dictionary via lookup() and return an IPAWord to tell if a word
 //  has multiple IPA pronunciations, as well as the IPA text itself (pronunciations
 //  included).
 
-//  This can be viewed as an API to loading the CMU IPA Dictionary, and looking up words in it.
+//  This can be viewed as an API to loading the GMR Phonetic Dictionary, and looking up words in it.
 //  This API is used by `converter-form.js` to give it functionality and a UI, though you can design
 //  your own for any purpose you so desire.
 
-// NOTE: This program implies that the CMU IPA dictionary (http://people.umass.edu/nconstan/CMU-IPA/)
-// will be used to get IPA translations. This dictionary is by default included with this
-// program under the name 'ipadict.txt' in the `lib` directory.
-// This _WILL NOT WORK_ with any other IPA dictionary.
+// This _WILL NOT WORK WELL IF AT ALL_ with any other IPA dictionary.
 
 //      TextToIPA.loadDict(location)
 //          location    Location to load the dictionary from. Since it's gotten
@@ -27,7 +24,7 @@
 //          so ideally you would want to run this when the window loads.
 
 //      TextToIPA.lookup(word)
-//          word        English word that will be searched for in the IPA Dict
+//          word        word that will be searched for in the IPA Dict
 //          This method returns an IPAWord that has an error attribute, and
 //          a text attribute. The error determines if the word exists in IPA,
 //          if the word has multiple pronunciations. The text is the resulting
