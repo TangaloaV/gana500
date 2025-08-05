@@ -631,7 +631,320 @@ const phonemes = {
    //   },
   //  },
    }, 
- 
+
+//drillz
+
+"#": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 41.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 41.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"[": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 36.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 36.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"]": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 31.5,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 31.5,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"/": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 26.75,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 26.75,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+  },
+  ],},
+";": {
+  voiced: true,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 22.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 22.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"~": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 41.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 41.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 41.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"{": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 36.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 36.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 36.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"}": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 31.5,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 31.5,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 31.5,
+      diameter: 1.1,
+    },
+  },
+  ],},
+"?": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 26.75,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 26.75,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 26.75,
+      diameter: 1.1,
+    },
+  },
+  ],},
+":": {
+  voiced: false,
+  graphemes: ["10"],
+  example: "10",
+  constrictions: [ {
+    front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+  },{
+   front: {
+      index: 22.0,
+      diameter: -0.4,
+    },
+},{
+   front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+},{
+      front: {
+      index: 22.0,
+      diameter: -0.4,
+    },
+},{
+ front: {
+      index: 22.0,
+      diameter: 1.1,
+    },
+  },
+  ],},
+
  //tosi14
   "": {
   voiced: true,
