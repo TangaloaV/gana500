@@ -137,500 +137,500 @@ function throttle(functionToThrottle, minimumInterval, optionalContext) {
 
 // https://www.dyslexia-reading-well.com/44-phonemes-in-english.html
 const phonemes = {
+
   // CONSONANTS
   t: {
-  voiced: true,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: {
+    voiced: true,
+    graphemes: ["9"],
+    example: "9",
+    constrictions: {
+        front: {
+          index: 31.5,
+          diameter: -0.4,
+       },
+    },
+  },
+    n: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
       front: {
         index: 31.5,
-        diameter: 0.1,
-     },
-  },
-},
-  n: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: -0.8,
-    },
-  },
-},
-  s: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.4,
-    },
-  },
-},
-  r: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.8,
-    },
-  },
-},
-  k: {
-  voiced: true,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: 
-    {
-      front: {
-        index: 21.5,
-        diameter: 0.1,
+        diameter: -1.1,
       },
     },
-},
-  g: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: -0.8,
-    },
   },
-},
-  h: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.4,
-    },
-  },
-},
-  q: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.8,
-    },
-  },
-},
-  p: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 41.5,
-        diameter: 0.1,
-      },
-    },
-},
-  m: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: -0.8,
-    },
-  },
-},
-  f: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.4,
-    },
-  },
-},
-  w: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.8,
-    },
-  },
-},
-  d: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 38.0,
-        diameter: 0.1,
-      },
-    },
-},
-  b: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: -0.8,
-    },
-  },
-},
-  z: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.4,
-    },
-  },
-},
-  l: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.8,
-    },
-  },
-},
-  c: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
-      front: {
-        index: 26.5,
-        diameter: 0.1,
-      },
-    },
-},
-  j: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: -0.8,
-    },
-  },
-},
-  x: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.4,
-    },
-  },
-},
-  y: {
-  voiced: true,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.8,
-    },
-  },
-},
-  //voiceless
-  T: {
-  voiced: false,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: {
+    s: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
       front: {
         index: 31.5,
-        diameter: 0.1,
-     },
-  },
- },
-  N: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: -0.8,
-    },
-  },
-},
-  S: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.4,
-    },
-  },
-},
-  R: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 31.5,
-      diameter: 0.8,
-    },
-  },
-},
-  K: {
-  voiced: false,
-  graphemes: ["9"],
-  example: "9",
-  constrictions: 
-    {
-      front: {
-        index: 21.5,
-        diameter: 0.1,
+        diameter: 0.4,
       },
     },
-},
-  G: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: -0.8,
-    },
   },
-},
-  H: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.4,
-    },
-  },
-},
-  Q: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 21.5,
-      diameter: 0.8,
-    },
-  },
-},
-  P: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
+    r: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
       front: {
-        index: 41.5,
-        diameter: 0.1,
+        index: 31.5,
+        diameter: 1.1,
       },
     },
-},
-  M: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: -0.8,
-    },
   },
-},
-F: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.4,
-    },
+    k: {
+    voiced: true,
+    graphemes: ["9"],
+    example: "9",
+    constrictions: 
+      {
+        front: {
+          index: 22.0,
+          diameter: -0.4,
+        },
+      },
   },
-},
-  W: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 41.5,
-      diameter: 0.8,
-    },
-  },
-},
-  D: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
+    g: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
       front: {
-        index: 38.0,
-        diameter: 0.1,
+        index: 22.0,
+        diameter: -1.1,
       },
     },
-},
-  B: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: -0.8,
-    },
   },
-},
-  Z: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.4,
-    },
-  },
-},
-  L: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 38.0,
-      diameter: 0.8,
-    },
-  },
-},
-  C: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: 
-    {
+    h: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
       front: {
-        index: 26.5,
-        diameter: 0.1,
+        index: 22.0,
+        diameter: 0.4,
       },
     },
-},
-  J: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: -0.8,
+  },
+    q: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 22.0,
+        diameter: 1.1,
+      },
     },
   },
-},
-  X: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.4,
+    p: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 41.0,
+          diameter: -0.4,
+        },
+      },
+  },
+    m: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: -1.1,
+      },
     },
   },
-},
-  Y: {
-  voiced: false,
-  graphemes: ["10"],
-  example: "10",
-  constrictions: {
-    front: {
-      index: 26.5,
-      diameter: 0.8,
+    f: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: 0.4,
+      },
     },
   },
-},
-  //tones
-6: {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
-//  intensity: 0.01,
-  frequency: 160,
-//  constrictions: {
- //   back: {
-  //    index: 10.0,
-  //    diameter: 2.35,
- //   },
-//  },
-},
-5: {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
- // intensity: 0.01,
-  frequency: 140,
-//  constrictions: {
-//    back: {
- //     index: 5.0,
- //     diameter: 2.35,
-//    },
-//  },
-},
-4: {
-  voiced: true,
-  graphemes: ["7"],
-  example: "7",
-  holdTime: 0.01,
-//  intensity: 0.01,
-  frequency: 120,
-//  constrictions: {
- //   back: {
- //     index: 1.0,
-  //    diameter: 2.35,
- //   },
-//  },
- }, 
-
+    w: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: 1.1,
+      },
+    },
+  },
+    d: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 36.0,
+          diameter: -0.4,
+        },
+      },
+  },
+    b: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: -1.1,
+      },
+    },
+  },
+    z: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: 0.4,
+      },
+    },
+  },
+    l: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: 1.1,
+      },
+    },
+  },
+    c: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 26.75,
+          diameter: -0.4,
+        },
+      },
+  },
+    j: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: -1.1,
+      },
+    },
+  },
+    x: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: 0.4,
+      },
+    },
+  },
+    y: {
+    voiced: true,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: 1.1,
+      },
+    },
+  },
+    //voiceless
+    T: {
+    voiced: false,
+    graphemes: ["9"],
+    example: "9",
+    constrictions: {
+        front: {
+          index: 31.5,
+          diameter: -0.4,
+       },
+    },
+   },
+    N: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 31.5,
+        diameter: -1.1,
+      },
+    },
+  },
+    S: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 31.5,
+        diameter: 0.4,
+      },
+    },
+  },
+    R: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 31.5,
+        diameter: 1.1,
+      },
+    },
+  },
+    K: {
+    voiced: false,
+    graphemes: ["9"],
+    example: "9",
+    constrictions: 
+      {
+        front: {
+          index: 22.0,
+          diameter: -0.4,
+        },
+      },
+  },
+    G: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 22.0,
+        diameter: -1.1,
+      },
+    },
+  },
+    H: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 22.0,
+        diameter: 0.4,
+      },
+    },
+  },
+    Q: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 22.0,
+        diameter: 1.1,
+      },
+    },
+  },
+    P: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 41.0,
+          diameter: -0.4,
+        },
+      },
+  },
+    M: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: -1.1,
+      },
+    },
+  },
+  F: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: 0.4,
+      },
+    },
+  },
+    W: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 41.0,
+        diameter: 1.1,
+      },
+    },
+  },
+    D: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 36.0,
+          diameter: -0.4,
+        },
+      },
+  },
+    B: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: -1.1,
+      },
+    },
+  },
+    Z: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: 0.4,
+      },
+    },
+  },
+    L: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 36.0,
+        diameter: 1.1,
+      },
+    },
+  },
+    C: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: 
+      {
+        front: {
+          index: 26.75,
+          diameter: -0.4,
+        },
+      },
+  },
+    J: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: -1.1,
+      },
+    },
+  },
+    X: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: 0.4,
+      },
+    },
+  },
+    Y: {
+    voiced: false,
+    graphemes: ["10"],
+    example: "10",
+    constrictions: {
+      front: {
+        index: 26.75,
+        diameter: 1.1,
+      },
+    },
+  },
+    //tones
+  6: {
+    voiced: true,
+    graphemes: ["7"],
+    example: "7",
+    holdTime: 0.01,
+  //  intensity: 0.01,
+    frequency: 160,
+  //  constrictions: {
+   //   back: {
+    //    index: 10.0,
+    //    diameter: 2.35,
+   //   },
+  //  },
+  },
+  5: {
+    voiced: true,
+    graphemes: ["7"],
+    example: "7",
+    holdTime: 0.01,
+   // intensity: 0.01,
+    frequency: 140,
+  //  constrictions: {
+  //    back: {
+   //     index: 5.0,
+   //     diameter: 2.35,
+  //    },
+  //  },
+  },
+  4: {
+    voiced: true,
+    graphemes: ["7"],
+    example: "7",
+    holdTime: 0.01,
+  //  intensity: 0.01,
+    frequency: 120,
+  //  constrictions: {
+   //   back: {
+   //     index: 1.0,
+    //    diameter: 2.35,
+   //   },
+  //  },
+   }, 
  
  //tosi14
   "": {
@@ -2330,7 +2330,7 @@ constrictions: {
     constrictions: {
       back: {
         index: 31.5,
-        diameter: 0.8,
+        diameter: 1.1,
       },
     },
     },
@@ -2340,8 +2340,8 @@ constrictions: {
     example: "10",
     constrictions: {
       back: {
-        index: 21.5,
-        diameter: 0.8,
+        index: 22.0,
+        diameter: 1.1,
       },
     },
     },
@@ -2351,8 +2351,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 41.5,
-          diameter: 0.8,
+          index: 41.0,
+          diameter: 1.1,
         },
       },
     },
@@ -2362,8 +2362,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 38.0,
-          diameter: 0.8,
+          index: 36.0,
+          diameter: 1.1,
         },
       },
     },
@@ -2373,8 +2373,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 26.5,
-          diameter: 0.8,
+          index: 26.75,
+          diameter: 1.1,
         },
       },
     },
@@ -2396,7 +2396,7 @@ constrictions: {
       constrictions: {
         back: {
           index: 256.0,
-          diameter: -1.5,
+          diameter: -1.1,
         },
        },
       },
@@ -2409,7 +2409,7 @@ constrictions: {
     constrictions: {
       back: {
         index: 31.5,
-        diameter: 0.8,
+        diameter: 1.1,
       },
     },
     },
@@ -2419,8 +2419,8 @@ constrictions: {
     example: "10",
     constrictions: {
       back: {
-        index: 21.5,
-        diameter: 0.8,
+        index: 22.0,
+        diameter: 1.1,
       },
     },
     },
@@ -2430,8 +2430,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 41.5,
-          diameter: 0.8,
+          index: 41.0,
+          diameter: 1.1,
         },
       },
     }, //risky definition -------------------------------------------------------------------------
@@ -2441,8 +2441,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 38.0,
-          diameter: 0.8,
+          index: 36.0,
+          diameter: 1.1,
         },
       },
     },
@@ -2452,8 +2452,8 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 26.5,
-          diameter: 0.8,
+          index: 26.75,
+          diameter: 1.1,
         },
       },
     },
@@ -2463,7 +2463,7 @@ constrictions: {
       example: "10",
       constrictions: {
         back: {
-          index: 31.5,
+          index: 10.5,
           diameter: 5.0,
         },
        },
