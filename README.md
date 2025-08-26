@@ -1,5 +1,6 @@
 # reagana
 
+qana manako ki fakaqaonqa ko te tosikireos firi ko Pink Trombone maqa Text To Speach.
 |	IPA	|	TYPE	|
 |	---------	|	---------	|
 |	_̃	|	=	|
