@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Gridified Dictionary – Paste List → Auto Grid</title>
+<style>
+  :root{
+    --baseFont: 18px;
+    --colWidth: 360px;
+    --bg:#050910; --fg:#e8eefc; --soft:#0e162a; --line:#253253; --accent:#8bf0ff;
+  }
+  html, body { height:100%; }
+  body { margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; background:var(--bg); color:var(--fg); font-size:var(--baseFont); }
+
+  .layout { display:grid; grid-template-columns: 380px 1fr; height:100vh; }
+  .layout.hide-panel { grid-template-columns: 1fr; }
+  @media (max-width: 900px){ .layout { grid-template-columns: 1fr; grid-auto-rows: max-content 1fr; } }
+
+  .panel { background:#070d1b; border-right:1px solid var(--line); padding:12px; display:flex; flex-direction:column; gap:10px; }
+  .panel.hidden { display:none; }
+  .panel h1 { margin:0 0 4px; font-size:1.1em; font-weight:700; }
+  .panel .row { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .panel .row .pill { padding:4px 8px; border:1px solid var(--line); border-radius:999px; font-size:.9em; }
+  .panel textarea { width:100%; height:45vh; resize:vertical; box-sizing:border-box; background:#0b142a; color:var(--fg); border:1px solid var(--line); border-radius:10px; padding:10px; font-size:14px; line-height:1.4; }
+  .panel button, .panel select, .panel input[type="range"] { background:#0b142a; color:var(--fg); border:1px solid var(--line); border-radius:10px; padding:8px 10px; }
+  .panel button { cursor:pointer; }
+  .panel button:hover { border-color:#33548c; }
+
+  .view { position:relative; height:100vh; overflow:auto; }
+  .toolbar { position:sticky; top:0; z-index:10; background:linear-gradient(#071022, #070d1b); border-bottom:1px solid var(--line); padding:8px 10px; display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .toolbar label { opacity:.9; }
+  #count { margin-left:auto; opacity:.8; }
+  #togglePanel { cursor:pointer; background:#0b142a; border:1px solid var(--line); border-radius:6px; padding:4px 8px; }
+  #togglePanel:hover { border-color:#33548c; }
+
+  #grid { column-width: var(--colWidth); column-gap: 28px; column-rule: 1px solid var(--line); padding: 14px 14px 80px; }
+  .item { break-inside: avoid; display:flex; align-items:baseline; gap:8px; padding:3px 0; }
+  .item .L { font-weight:600; }
+  .item .R { font-weight:700; }
+  .item .dots { flex:1; border-bottom:1px dotted #2e3b5e; transform: translateY(-.25em); }
+  .item:hover { background: rgba(139,240,255,.06); border-radius:6px; }
+  .muted { opacity:.75; }
+</style>
+</head>
+<body>
+<div class="layout" id="layout">
+
+  <aside class="panel" id="panel">
+    <h1>Paste your list</h1>
+    <div class="muted">Format: one pair per line → <code>english - indonesian</code>. (Any of <code>- – — : = \t</code> work.)</div>
+    <textarea id="src" placeholder="house - rumah\nboat - perahu\nwater - air\n...\n"></textarea>
+
+    <div class="row">
+      <button id="parseBtn">Apply</button>
+      <button id="clearBtn">Clear</button>
+      <button id="sampleBtn" title="Load a 200‑word Indonesian sample">Load Indo‑200</button>
+      <span class="pill" id="status">Idle</span>
+    </div>
+
+    <div class="row">
+      <label>Sort</label>
+      <select id="sort">
+        <option value="orig">Original order</option>
+        <option value="left_asc">Left A→Z</option>
+        <option value="left_desc">Left Z→A</option>
+        <option value="right_asc">Right A→Z</option>
+        <option value="right_desc">Right Z→A</option>
+      </select>
+      <label><input type="checkbox" id="swap"/> Swap display (Right ⇄ Left)</label>
+    </div>
+
+    <div class="row">
+      <label for="font">Font</label>
+      <input id="font" type="range" min="12" max="36" step="1" value="18"/>
+      <span class="pill" id="fontVal">18px</span>
+    </div>
+
+    <div class="row">
+      <label for="col">Column width</label>
+      <input id="col" type="range" min="220" max="520" step="10" value="360"/>
+      <span class="pill" id="colVal">360px</span>
+    </div>
+
+    <div class="muted">All changes autosave to your browser. Edit the left text anytime; the right grid updates instantly.</div>
+  </aside>
+
+  <section class="view">
+    <div class="toolbar">
+      <button id="togglePanel">☰</button>
+      <div><strong>Grid view</strong> — dotted rows like your mockup</div>
+      <div id="count" class="muted">0 items</div>
+    </div>
+    <div id="grid"></div>
+  </section>
+
+</div>
+
+<script>
+const layout = document.getElementById('layout');
+const panel = document.getElementById('panel');
+const toggleBtn = document.getElementById('togglePanel');
+toggleBtn.addEventListener('click', ()=>{
+  panel.classList.toggle('hidden');
+  layout.classList.toggle('hide-panel');
+});
+
+// --- State & Storage ---
+const KEY_TEXT = 'gridDict_src_v1';
+const KEY_PREF = 'gridDict_pref_v1';
+
+const src = document.getElementById('src');
+const grid = document.getElementById('grid');
+const statusEl = document.getElementById('status');
+const countEl = document.getElementById('count');
+const sortSel = document.getElementById('sort');
+const swapChk = document.getElementById('swap');
+const font = document.getElementById('font');
+const fontVal = document.getElementById('fontVal');
+const col = document.getElementById('col');
+const colVal = document.getElementById('colVal');
+
+const parseBtn = document.getElementById('parseBtn');
+const clearBtn = document.getElementById('clearBtn');
+const sampleBtn = document.getElementById('sampleBtn');
+
+let entries = [];
+
+(function initLoad(){
+  try {
+    const t = localStorage.getItem(KEY_TEXT);
+    if(t) src.value = t;
+    const pref = JSON.parse(localStorage.getItem(KEY_PREF)||'{}');
+    if(pref.sort) sortSel.value = pref.sort;
+    if(pref.swap!=null) swapChk.checked = !!pref.swap;
+    if(pref.font) { font.value = pref.font; fontVal.textContent = pref.font+'px'; document.documentElement.style.setProperty('--baseFont', pref.font+'px'); }
+    if(pref.col)  { col.value = pref.col; colVal.textContent   = pref.col+'px';  document.documentElement.style.setProperty('--colWidth', pref.col+'px'); }
+  } catch(e){}
+})();
+
+function savePrefs(){
+  const p = { sort: sortSel.value, swap: swapChk.checked, font: +font.value, col: +col.value };
+  localStorage.setItem(KEY_PREF, JSON.stringify(p));
+}
+
+function parse(text){
+  const lines = text.split(/\r?\n/);
+  const out = [];
+  for(let i=0;i<lines.length;i++){
+    const raw = lines[i].trim();
+    if(!raw) continue;
+    const parts = raw.split(/\s*(?:-|–|—|:|=|\t|->)\s*/);
+    if(parts.length<2){ out.push({left: raw, right:'', orig: out.length}); continue; }
+    const left = parts[0].trim();
+    const right = parts.slice(1).join(' - ').trim();
+    out.push({left,right,orig: out.length});
+  }
+  return out;
+}
+
+function sortEntries(arr){
+  const m = sortSel.value;
+  const dir = m.endsWith('desc')? -1: 1;
+  if(m==='orig') return arr.slice().sort((a,b)=>a.orig-b.orig);
+  const key = m.startsWith('right')? 'right':'left';
+  return arr.slice().sort((a,b)=> a[key].localeCompare(b[key], 'id', {sensitivity:'base'}) * dir);
+}
+
+function render(){
+  const arr = sortEntries(entries);
+  grid.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  for(const it of arr){
+    const L = swapChk.checked ? it.right : it.left;
+    const R = swapChk.checked ? it.left  : it.right;
+    const div = document.createElement('div');
+    div.className = 'item';
+    const l = document.createElement('span'); l.className='L'; l.textContent = L;
+    const dots = document.createElement('span'); dots.className='dots';
+    const r = document.createElement('span'); r.className='R'; r.textContent = R;
+    div.appendChild(l); div.appendChild(dots); div.appendChild(r);
+    frag.appendChild(div);
+  }
+  grid.appendChild(frag);
+  countEl.textContent = arr.length + ' items';
+}
+
+function applyParse(){
+  const text = src.value;
+  localStorage.setItem(KEY_TEXT, text);
+  entries = parse(text);
+  statusEl.textContent = 'Parsed ' + entries.length + ' lines';
+  render();
+}
+
+let t;
+src.addEventListener('input', ()=>{ clearTimeout(t); t = setTimeout(applyParse, 120); });
+parseBtn.addEventListener('click', applyParse);
+clearBtn.addEventListener('click', ()=>{ src.value=''; applyParse(); });
+sortSel.addEventListener('change', ()=>{ savePrefs(); render(); });
+swapChk.addEventListener('change', ()=>{ savePrefs(); render(); });
+font.addEventListener('input', (e)=>{ const v=e.target.value; fontVal.textContent=v+'px'; document.documentElement.style.setProperty('--baseFont', v+'px'); savePrefs(); });
+col.addEventListener('input', (e)=>{ const v=e.target.value; colVal.textContent=v+'px'; document.documentElement.style.setProperty('--colWidth', v+'px'); savePrefs(); });
+
+sampleBtn.addEventListener('click', ()=>{
+  const sample = SAMPLE_200.trim();
+  src.value = sample; applyParse();
+});
+
+applyParse();
+
+const SAMPLE_200 = `
+hello - halo
+hi - hai
+goodbye - selamat tinggal
+see you - sampai jumpa
+please - tolong
+thank you - terima kasih
+...etc
+`;
+</script>
+</body>
+</html>
