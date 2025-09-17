@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Conlang TSV Matcher — Dual Independent Scroll</title>
+  <style>
+    :root{
+      --bg:#0b1320; --panel:#0f1a2c; --muted:#a9b3c7; --text:#e6eefc; --accent:#3fb7ff; --danger:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Ubuntu,Helvetica,Arial,sans-serif;background:#0b1320;color:var(--text)}
+    header{position:sticky;top:0;z-index:10;backdrop-filter:saturate(1.2) blur(6px);background:rgba(9,16,32,.8);border-bottom:1px solid #1c2a47}
+    .bar{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;padding:1rem clamp(.75rem,2vw,1.25rem)}
+    .controls{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+    .group{display:flex;gap:.5rem;align-items:center;background:#10203a;padding:.5rem .75rem;border-radius:.75rem;border:1px solid #1a2e54}
+    label{font-size:.92rem;color:var(--muted)}
+    input[type=file]{color:var(--muted)}
+    button{cursor:pointer;border:none;outline:none;border-radius:.7rem;padding:.6rem .9rem;font-weight:700;color:#06101f;background:var(--accent)}
+    button.secondary{background:#213658;color:var(--text);border:1px solid #2c4a7d}
+    button.ghost{background:transparent;color:#c3cde3;border:1px dashed #2b4473}
+
+    main{padding:1rem clamp(.75rem,2vw,1.25rem);max-width:1300px;margin:0 auto}
+    .layout{display:grid;grid-template-columns: 1fr 1fr; gap:1rem; align-items:start}
+    @media (max-width:1000px){.layout{grid-template-columns:1fr}}
+
+    .panel{background:var(--panel);border:1px solid #193058;border-radius:1rem;box-shadow:0 10px 30px rgba(0,0,0,.25);display:flex;flex-direction:column;min-height:0}
+    .panel h2{margin:0;padding:1rem;border-bottom:1px solid #173154;font-size:1.05rem;color:#d6e4ff}
+    .panel .body{padding:1rem;display:grid;gap:1rem}
+
+    /* Independent scroll areas for both sides */
+    #leftPanel .body,
+    #rightPanel .body{max-height:calc(100vh - 180px);overflow:auto;overscroll-behavior:contain;padding-right:.5rem}
+    /* subtle scrollbars */
+    #leftPanel .body::-webkit-scrollbar, #rightPanel .body::-webkit-scrollbar{width:10px}
+    #leftPanel .body::-webkit-scrollbar-thumb, #rightPanel .body::-webkit-scrollbar-thumb{background:#1e3760;border-radius:999px}
+    #leftPanel .body::-webkit-scrollbar-track, #rightPanel .body::-webkit-scrollbar-track{background:#0c1425;border-radius:999px}
+
+    .list{display:grid;gap:.5rem}
+    .slot{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.6rem;background:#0d172a;border:1px solid #1a2946;border-radius:.9rem;padding:.5rem}
+    .slot-label{padding:.6rem .75rem;border-radius:.6rem;background:#102445;border:1px solid #204073}
+    .dropArea{min-height:42px;display:flex;align-items:center;justify-content:flex-start;border:2px dashed #2b416d;border-radius:.6rem;padding:.25rem .4rem}
+    .slot.assigned .dropArea{border-style:solid;background:#0f203f}
+    .slot.drag-over .dropArea{outline:2px solid var(--accent);outline-offset:2px}
+
+    .tiles-toolbar{display:flex;gap:.5rem;align-items:center}
+    .tiles{--min:120px;display:grid;gap:.6rem;grid-template-columns:repeat(auto-fill,minmax(var(--min),1fr))}
+    .tile{user-select:none;background:#0f203a;border:1px solid #23406e;border-radius:.65rem;padding:.5rem .6rem;display:flex;align-items:center;gap:.6rem;min-height:38px}
+    .tile .label{flex:1;word-break:break-word}
+    .tile .handle{font-size:.85rem;color:#9bb6e4;background:#1a335b;border:1px solid #2a4b87;border-radius:.5rem;padding:.2rem .4rem}
+    .tile button.remove{background:transparent;color:#b3c8f1;border:1px solid #2b4b89;border-radius:.5rem;padding:.2rem .45rem}
+    .tile button.remove:hover{background:#1e3560}
+    .tile[draggable="true"]:focus{outline:2px solid var(--accent);outline-offset:2px}
+
+    .help{font-size:.92rem;color:#9fb3d6}
+    .pill{background:#0f1e35;border:1px solid #254270;color:#cfe4ff;border-radius:999px;padding:.25rem .6rem;font-size:.85rem;margin-right:.4rem}
+    .stats{display:flex;flex-wrap:wrap;align-items:center}
+
+    .hidden{display:none !important}
+    .mono{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace}
+  </style>
+</head>
+<body>
+<header>
+  <div class="bar">
+    <div class="controls">
+      <div class="group">
+        <label class="mono">TSV file:</label>
+        <input id="fileInput" type="file" accept=".tsv,text/tab-separated-values,text/plain" />
+      </div>
+      <div class="group">
+        <label><input id="hasHeader" type="checkbox"> First row is header</label>
+        <label><input id="dedupe" type="checkbox" checked> Auto‑dedupe Column 2</label>
+      </div>
+      <div class="group">
+        <button id="btnSample" class="secondary">Try sample</button>
+        <button id="btnReset" class="ghost">Reset</button>
+        <button id="btnExport">Export TSV</button>
+      </div>
+    </div>
+    <div id="stats" class="stats"></div>
+  </div>
+</header>
+
+<main>
+  <div class="layout">
+    <section class="panel" id="leftPanel">
+      <h2>1) Column One — fixed list (scrolls independently)</h2>
+      <div class="body">
+        <p class="help">Drop a tile from the right onto a row. One tile per row. Dropping a different tile replaces the old one. Double‑click a slotted tile to return it to the pool.</p>
+        <div id="list" class="list"></div>
+      </div>
+    </section>
+    <section class="panel" id="rightPanel">
+      <h2>2) Column Two — tiles to assign (scrolls independently)</h2>
+      <div class="body">
+        <div class="tiles-toolbar">
+          <input id="filter" type="search" placeholder="Filter tiles…" style="flex:1;min-width:160px;background:#0e1a30;border:1px solid #1d2f54;border-radius:.6rem;padding:.55rem .7rem;color:var(--text)"/>
+          <span class="help">Drag into the list →</span>
+        </div>
+        <div id="tiles" class="tiles" aria-live="polite"></div>
+        <details id="dupesBox" class="hidden"><summary style="cursor:pointer">Duplicates removed from Column 2</summary>
+          <div id="dupesList" class="mono" style="white-space:pre-wrap"></div>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<script>
+// ---------- State ----------
+const state = { list: [], tiles: [], assignments: new Map(), nextId: 1 };
+const els = {
+  list: document.getElementById('list'),
+  tiles: document.getElementById('tiles'),
+  stats: document.getElementById('stats'),
+  filter: document.getElementById('filter'),
+  fileInput: document.getElementById('fileInput'),
+  hasHeader: document.getElementById('hasHeader'),
+  dedupe: document.getElementById('dedupe'),
+  btnSample: document.getElementById('btnSample'),
+  btnReset: document.getElementById('btnReset'),
+  btnExport: document.getElementById('btnExport'),
+  dupesBox: document.getElementById('dupesBox'),
+  dupesList: document.getElementById('dupesList'),
+};
+
+function resetAll(){
+  state.list = []; state.tiles = []; state.assignments = new Map(); state.nextId = 1;
+  els.list.innerHTML = ''; els.tiles.innerHTML = ''; els.dupesList.textContent='';
+  els.dupesBox.classList.add('hidden'); els.fileInput.value = '';
+  updateStats();
+}
+
+// Parse TSV (fallback split on hyphen if no tabs found)
+function parseTSV(text, hasHeader){
+  const lines = text.replace(/\uFEFF/g,'').split(/\r?\n/).filter(l=>l.trim()!=='');
+  const rows = lines.map(l => {
+    if(l.includes('\t')) return l.split('\t');
+    const m = l.split(/\s*[–—-]+\s*/); // fallback: hyphen/dash
+    return m.length>=2 ? [m[0], m.slice(1).join(' - ')] : [l,''];
+  });
+  if(hasHeader && rows.length) rows.shift();
+  const col1=[], col2=[];
+  for(const r of rows){
+    const a=(r[0]??'').trim(); const b=(r[1]??'').trim();
+    if(a!=='' || b!==''){ if(a!=='') col1.push(a); if(b!=='') col2.push(b); }
+  }
+  return {col1, col2};
+}
+
+function build(col1, col2){
+  resetAll();
+  state.list = col1.slice();
+  const wantDedupe = els.dedupe.checked;
+  const seen = new Map(); const unique=[]; const dupes=[];
+  for(const s of col2){
+    const key = s.toLowerCase();
+    const c = (seen.get(key)||0)+1; seen.set(key,c);
+    if(c===1) unique.push(s); else { if(wantDedupe) dupes.push(s); else unique.push(s); }
+  }
+  if(dupes.length){ els.dupesBox.classList.remove('hidden'); els.dupesList.textContent = dupes.join('\n'); }
+  state.tiles = unique.map(label=>({id:String(state.nextId++), label}));
+  renderList();
+  renderAll();
+}
+
+// ---------- Rendering ----------
+function renderList(){
+  els.list.innerHTML='';
+  state.list.forEach((label, i)=>{
+    const slot = document.createElement('div'); slot.className='slot'; slot.id = 'slot-'+i; slot.dataset.index=i;
+    const left = document.createElement('div'); left.className='slot-label'; left.textContent = label;
+    const drop = document.createElement('div'); drop.className='dropArea'; drop.id='drop-'+i;
+    slot.append(left, drop);
+    makeDroppable(slot, i);
+    els.list.appendChild(slot);
+  });
+}
+
+function renderAll(){
+  // Clear all drops
+  document.querySelectorAll('.dropArea').forEach(d=> d.innerHTML='');
+  document.querySelectorAll('.slot').forEach(s=> s.classList.remove('assigned'));
+  renderTiles();
+  // Render assignments into their slots
+  for(const [slotIndex, tileId] of state.assignments.entries()){
+    const slotEl = document.getElementById('slot-'+slotIndex);
+    const tile = state.tiles.find(t=>t.id===tileId);
+    if(slotEl && tile){
+      const tileEl = createTileEl(tile);
+      slotEl.classList.add('assigned');
+      slotEl.querySelector('.dropArea').appendChild(tileEl);
+    }
+  }
+  updateStats();
+}
+
+function renderTiles(){
+  els.tiles.innerHTML='';
+  const filter = els.filter.value.trim().toLowerCase();
+  const assignedIds = new Set([...state.assignments.values()]);
+  state.tiles.forEach(t=>{
+    if(assignedIds.has(t.id)) return; // only pool tiles
+    if(filter && !t.label.toLowerCase().includes(filter)) return;
+    els.tiles.appendChild(createTileEl(t));
+  });
+}
+
+function createTileEl(tile){
+  const el = document.createElement('div'); el.className='tile'; el.draggable=true; el.id='tile-'+tile.id; el.dataset.id=tile.id;
+  const h = document.createElement('div'); h.className='handle'; h.textContent='⇅';
+  const lab = document.createElement('div'); lab.className='label'; lab.textContent=tile.label;
+  const btn = document.createElement('button'); btn.className='remove'; btn.title='Return to pool'; btn.textContent='×';
+  btn.addEventListener('click', ()=> returnToPool(tile.id));
+  el.append(h, lab, btn);
+  el.addEventListener('dragstart', (e)=>{
+    e.dataTransfer.setData('text/plain', tile.id);
+    e.dataTransfer.setData('text', tile.id);
+    e.dataTransfer.effectAllowed='move';
+  });
+  el.addEventListener('dblclick', ()=> returnToPool(tile.id));
+  return el;
+}
+
+// ---------- DnD ----------
+function makeDroppable(slotEl, slotIndex){
+  const over=(e)=>{ e.preventDefault(); slotEl.classList.add('drag-over'); e.dataTransfer.dropEffect='move'; };
+  const leave=()=> slotEl.classList.remove('drag-over');
+  slotEl.addEventListener('dragover', over);
+  slotEl.addEventListener('dragenter', over);
+  slotEl.addEventListener('dragleave', leave);
+  slotEl.addEventListener('drop', (e)=>{
+    e.preventDefault(); leave();
+    const tileId = e.dataTransfer.getData('text/plain') || e.dataTransfer.getData('text');
+    if(!tileId) return;
+    placeTile(tileId, slotIndex);
+  });
+}
+
+// pool is a drop target too (return tile)
+(function(){
+  const over=(e)=>{ e.preventDefault(); e.dataTransfer.dropEffect='move'; };
+  els.tiles.addEventListener('dragover', over);
+  els.tiles.addEventListener('dragenter', over);
+  els.tiles.addEventListener('drop', (e)=>{
+    e.preventDefault();
+    const tileId = e.dataTransfer.getData('text/plain') || e.dataTransfer.getData('text');
+    if(!tileId) return; returnToPool(tileId);
+  });
+})();
+
+// ---------- Assignments ----------
+function assignedSlot(tileId){
+  for(const [i,id] of state.assignments.entries()) if(id===tileId) return i; return -1;
+}
+
+function placeTile(tileId, slotIndex){
+  const current = state.assignments.get(slotIndex);
+  const fromSlot = assignedSlot(tileId);
+  if(current && current !== tileId){
+    // replace existing (send it back to pool)
+    state.assignments.delete(slotIndex);
+  }
+  state.assignments.set(slotIndex, tileId);
+  if(fromSlot !== -1 && fromSlot !== slotIndex){
+    state.assignments.delete(fromSlot);
+  }
+  renderAll();
+}
+
+function returnToPool(tileId){
+  const fromSlot = assignedSlot(tileId);
+  if(fromSlot !== -1){ state.assignments.delete(fromSlot); }
+  renderAll();
+}
+
+// ---------- Export ----------
+function exportTSV(){
+  const lines = [];
+  lines.push('Column1\tColumn2');
+  state.list.forEach((label, i)=>{
+    const tileId = state.assignments.get(i);
+    const val = tileId ? (state.tiles.find(t=>t.id===tileId)?.label || '') : '';
+    lines.push(`${escapeTSV(label)}\t${escapeTSV(val)}`);
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/tab-separated-values'});
+  const url = URL.createObjectURL(blob); const a=document.createElement('a');
+  a.href=url; a.download='sorted.tsv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+
+function escapeTSV(s){ return String(s??'').replace(/\t/g,' ').replace(/\r?\n/g,' '); }
+
+// ---------- Events ----------
+els.fileInput.addEventListener('change', async (e)=>{
+  const f = e.target.files?.[0]; if(!f) return; const text = await f.text();
+  const data = parseTSV(text, els.hasHeader.checked); build(data.col1, data.col2);
+});
+els.btnSample.addEventListener('click', ()=>{
+  const sample = `English\tNgana\nI\ta\nme\taq\ngo\tma\nant\troo\nBoat\tvaa\n`;
+  const parsed = parseTSV(sample,true); build(parsed.col1, parsed.col2);
+});
+els.btnReset.addEventListener('click', resetAll);
+els.btnExport.addEventListener('click', exportTSV);
+els.filter.addEventListener('input', renderTiles);
+
+// Allow paste TSV anywhere
+addEventListener('paste', (e)=>{
+  if(['INPUT','TEXTAREA'].includes(document.activeElement?.tagName)) return;
+  const text = (e.clipboardData||window.clipboardData).getData('text');
+  if(text && (text.includes('\t') || /\s[–—-]\s/.test(text))){
+    const data = parseTSV(text, els.hasHeader.checked); build(data.col1, data.col2);
+  }
+});
+
+function updateStats(){
+  const assigned = state.assignments.size; const rows = state.list.length; const pool = state.tiles.length - assigned;
+  els.stats.innerHTML = `<span class="pill">Rows: <b>${rows}</b></span>`+
+                        `<span class="pill">Tiles: <b>${state.tiles.length}</b></span>`+
+                        `<span class="pill">Assigned: <b>${assigned}</b></span>`+
+                        `<span class="pill">In pool: <b>${pool}</b></span>`;
+}
+
+</script>
+</body>
+</html>
