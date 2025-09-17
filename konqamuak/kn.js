@@ -6,6 +6,7 @@
 const htmlPagesRaw = [
   { file: "../konqamuak/reoskimiti/matuqa.html", title: "Matuqa", emoji: "📄" },
   { file: "../raukikaupusa.html", title: "Rau Ki Kaupusa", emoji: "📄" },
+  { file: "../grk.html", title: "Nqana Rau Kanoni", emoji: "📄" },
   { file: "../awkwordsjs-master/index.html", title: "Nqaos Kupu Awkwords", emoji: "📄" },
   { file: "../konqamuak/faqastsv.html", title: "Faqastsv", emoji: "📄" },
   { file: "../konqamuak/TE GANA SAWAIKI.html", title: "Sawaiki", emoji: "📄" },
