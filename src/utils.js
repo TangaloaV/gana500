@@ -3760,11 +3760,11 @@ let Voiceness = {
   "1": 0.2,
   "2": 0.0001,
 };
-let consonantHoldTime = 0.05;
+let consonantHoldTime = 0.1;
 let timeBetweenSubResults = 0.1; // seconds
 let spaceTime = 0.1;
 let releaseTime = 0.1;
-let timeBetweenPhonemes = 0.1;
+let timeBetweenPhonemes = 0.1; // nqaos ko rua ko isunq ronqon tee masani. fakaqaonqa te kupu natadmaagpwoptadatak ki fakaronqon ki nqaa firinqa
 let timeBetweenSubPhonemes = 0.01;
 let defaultVoiceness = 0.85; //voicesetting
 let defaultVoiceless = 0.15;

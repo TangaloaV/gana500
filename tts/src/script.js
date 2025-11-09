@@ -437,7 +437,7 @@ const createResultContainer = () => {
             timeDelta: !isSubPhoneme
               ? timeBetweenPhonemes
               : timeBetweenSubPhonemes,
-            "frontConstriction.diameter": 5,
+            "frontConstriction.diameter": 1.7,
            // "backConstriction.diameter": 5,
           };
 // reapapan backsetting
