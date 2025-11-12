@@ -157,7 +157,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 31.5,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -202,7 +202,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 22.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -247,7 +247,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 41.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -292,7 +292,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 36.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -337,7 +337,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 26.75,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -382,7 +382,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 31.5,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -427,7 +427,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 22.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -472,7 +472,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 41.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -517,7 +517,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 36.0,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -562,7 +562,7 @@ const phonemes = {
     constrictions: {
       front: {
         index: 26.75,
-        diameter: -1.1,
+        diameter: -1.5,
       },
     },
   },
@@ -2709,7 +2709,7 @@ constrictions: {
       constrictions: {
         back: {
           index: 256.0,
-          diameter: -1.1,
+          diameter: -1.5,
         },
        },
       },
